@@ -17,10 +17,16 @@ var bigMap;
 //equipment variables
 var playerSonar = false;
 var playerRadar = false;
+var armor = 0;
+var maxHP = 4;
 var vision = 2;
 var moves = 0;
 var movesUntilBigMoves = 10;
+
+//display values
 var cover;
+var health;
+var defense;
 
 //screen
 var asciidisplay;
@@ -39,9 +45,13 @@ function create() {
 
 	var size = fontSize*.7;
 	var style = {font: size+"px monospace", fill:"#fff"};
-	//game.add.text((size*0.6*x) + (offset * 0.6 * fontSize), size*y, chr, style);
-	game.add.text((0+size),(screenHeight-(3*size)),"Cover:",style)
-	cover = game.add.text((0+size),(screenHeight-(size*2))," ",style)
+	//adding text displays for health, defense and cover
+	game.add.text((0+size),(screenHeight-(9*size)),"Health:",style);
+	health = game.add.text((0+size),(screenHeight-(size*8))," ",style);
+	game.add.text((0+size),(screenHeight-(6*size)),"Defense:",style);
+	defense = game.add.text((0+size),(screenHeight-(size*5))," ",style);
+	game.add.text((0+size),(screenHeight-(3*size)),"Cover:",style);
+	cover = game.add.text((0+size),(screenHeight-(size*2))," ",style);
 
 
 	//map
@@ -76,7 +86,7 @@ function create() {
 	drawMainMap();
 	drawMainActors();
 	drawMainFog();
-	dispCurrentCover();
+	dispStats();
 }
 
 function initBigCell(chr,x,y, offset){
@@ -91,7 +101,7 @@ function initCell(chr,x,y){
 	var style = {font: fontSize+"px monospace", fill:"#fff"};
 	return game.add.text(fontSize*0.6*x, fontSize*y, chr, style);
 }
-function dispCurrentCover(){
+function dispStats(){
 	var cell = ' ';
 	for (var i = 0; i < bigMap.length; i++) {
 		if(bigMap[i].y == miniPlayer.y && bigMap[i].x == miniPlayer.x)
@@ -101,6 +111,11 @@ function dispCurrentCover(){
 		}
 	}
 	cover.content=cell+" = "+miniPlayer.cover;
+	health.content = miniPlayer.hp +" / "+ maxHP+" HP";
+	defense.content = miniPlayer.def +" Armor";
+}
+function dispCurrentHealth(){
+	health.content = mainPlayer.hp + " HP";
 }
 
 function setCover(actor, cell)
@@ -227,7 +242,7 @@ function onKeyUp(event){
 	drawMainMap();
 	drawMainActors();
 	drawMainFog();
-	dispCurrentCover();
+	dispStats();
 }
 
 function drawMap(){
@@ -541,8 +556,8 @@ function miniMoveTo(actor,dir){
 }
 function initPlayer(){
 	//create miniMapPlayer
-	miniPlayer = { x:0, y:0, hp:4, v:true, hunt:0, pause:false, swim:false, cover:0};
-	mainPlayer = { x:0, y:0, hp:4, v:true, hunt:0, pause:false, swim:false, cover:0};
+	miniPlayer = { x:0, y:0, hp:maxHP, v:true, hunt:0, pause:false, swim:false, cover:0, def:armor};
+	mainPlayer = { x:0, y:0, hp:maxHP, v:true, hunt:0, pause:false, swim:false, cover:0, def:armor};
 	switch	(randomInt(9))
 	{
 		case 1:
@@ -633,7 +648,7 @@ function initPlayer(){
 
 function initMiniActors(){
 	initPlayer();
-	miniEnemy = { x:0, y:0, hp:1, v:playerSonar, hunt:0, pause:false, swim:false, cover:0};
+	miniEnemy = { x:0, y:0, hp:10, v:playerSonar, def: 3, hunt:0, pause:false, swim:false, cover:0};
 	do{
 		//pick random position that is on the floor and not occupied
 		var y = randomInt(miniRows);
