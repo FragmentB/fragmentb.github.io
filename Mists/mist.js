@@ -15,11 +15,11 @@ var map;
 var bigMap;
 
 //equipment variables
-var playerSonar = true;
-var playerRadar = true;
+var playerSonar = false;
+var playerRadar = false;
 var armor = 0;
-var maxHP = 4;
-var vision = 10;
+var maxHP = 10;
+var vision = 2;
 var enemySize = 1;
 var moves = 0;
 var movesUntilBigMoves =2;
@@ -112,7 +112,7 @@ function dispStats(){
 		}
 	}
 	cover.content=cell+" = "+mainPlayer.cover;
-	health.content = mainPlayer.hp +" / "+ maxHP+" HP";
+	health.content = mainPlayer.hp +"/"+ maxHP+"HP";
 	defense.content = mainPlayer.def +" Armor";
 }
 function dispCurrentHealth(){
@@ -204,7 +204,6 @@ function drawMainFog()
 function onKeyUp(event){
 	drawMap();
 	
-	var acted = false;
 	switch (event.keyCode) {
 		case Phaser.Keyboard.LEFT:
 			if(mainMoveTo(mainPlayer, {x:-1, y:0}))
@@ -226,7 +225,11 @@ function onKeyUp(event){
 				moves++;
 			break;
 		case Phaser.Keyboard.SPACEBAR:
-			acted = true;
+			//attack(mainPlayer, weapon)
+			moves++;
+			break;
+		case Phaser.Keyboard.ESCAPE:
+			//back to camp here
 			break;
 	}
 	if(moves >= movesUntilBigMoves || bigEnemy.mapPos == mainPlayer.mapPos)
@@ -471,11 +474,27 @@ function drawMainActors(){
 	}
 	var x = mainPlayer.x;
 	var y = mainPlayer.y;
-
 	areaAscii[y][x].content = mainPlayer.char;
 
 }
+function causeDamage(target,attacker)
+{
+	damage = attacker.pow - target.def;
+	if(damage < 1)
+		damage = 1;
+	target.hp -= damage;
 
+	if(attacker == bigEnemy)
+	{
+		bigEnemy.pause = true;
+	}
+
+	if(mainPlayer.hp < 1) {
+		//game over
+		var gameOver = game.add.text(game.world.centerX, game.world.centerY, 'Game Over\nCtrl+r to restart', { fill : '#e22', align: "center" } );
+        gameOver.anchor.setTo(0.5,0.5);
+	}
+}
 function drawMiniActors(){
 	var mapPos = mainPlayer.mapPos;
 	var x = bigMap[mapPos].x;
@@ -610,6 +629,15 @@ function mainCanGo(actor,dir){
 	return canGo;
 }
 function mainMoveTo(actor,dir){
+	if(dir.x<0)
+		actor.facing = 'left';
+	if(dir.x>0)
+		actor.facing = 'right';
+	if(dir.y<0)
+		actor.facing = 'up';
+	if(dir.y>0)
+		actor.facing = 'down';
+
 	if(!mainCanGo(actor,dir))
 		return false;
 	var x = bigMap[actor.mapPos].x;
@@ -628,7 +656,7 @@ function mainMoveTo(actor,dir){
 			actor.mapPos= getBigMapPos(y+dir.y,x+dir.x);
 		}
 		else
-			actor.x+=dir.x;
+			actor.x+=dir.x;	
 	}
 	if(dir.y !=0)
 	{
@@ -668,7 +696,7 @@ function initPlayer(){
 	var left = false;
 	var right = false;
 
-	mainPlayer = { x:0, y:0, hp:maxHP, v:true, hunt:0, pause:false, swim:false, cover:0, def:armor, char:'O'};
+	mainPlayer = { x:0, y:0, hp:maxHP, v:true, hunt:0, pause:false, swim:false, cover:0, pow:0, def:armor, char:'O', facing: null};
 	var temp = randomInt(9);
 	switch	(temp)
 	{
@@ -753,6 +781,14 @@ function initPlayer(){
 			} while(bigMap[i].map[mainPlayer.y][mainPlayer.x] == 'W')
 		}
 	}
+	if(top==true)
+		mainPlayer.facing = 'down';
+	if(bottom==true)
+		mainPlayer.facing = 'up';
+	if(left==true)
+		mainPlayer.facing = 'right';
+	if(right==true)
+		mainPlayer.facing = 'left';
 	escape = {x:mainPlayer.x,y:mainPlayer.y,char:'V'};
 }
 
@@ -790,14 +826,16 @@ function generateEnemy(x,y,i,indoors,cell)
 { 
 	var char = 'H';
 	var maxHp = 4;
+	var pow = randomInt(2);
 
 	if(indoors==true)
 	{
 		char = 'Z';
 		maxHp = 2;
+		pow = randomInt(4);
 	}
 
-	var enemy = {x:x,y:y,hp:randomInt(maxHp),v:true,def:1, hunt:0, pause:false,swim:false, cover:0,mapPos:i, char: char}
+	var enemy = {x:x,y:y,hp:randomInt(maxHp),v:true,def:1, hunt:0, pow:pow, pause:false,swim:false, cover:0,mapPos:i, char: char, facing: null}
 	setCover(enemy,cell);
 	return enemy;
 }
@@ -817,7 +855,7 @@ function initMiniActors(){
 
 	y = randomInt(mapRows-2) +1;
 	x = randomInt(mapCols-2) +1;
-	bigEnemy = { x:x, y:y, hp:10, v:playerSonar, def: 3, hunt:0, pause:false, swim:true, cover:0, mapPos:pos, char: 'E'};
+	bigEnemy = { x:x, y:y, hp:10, v:playerSonar, pow:5, def: 3, hunt:0, pause:false, swim:true, cover:0, mapPos:pos, char: 'E', facing: null};
 }
 
 function getBigMapPos(yPos,xPos)
