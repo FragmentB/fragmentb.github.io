@@ -1,10 +1,10 @@
 var fontSize = 32;
 
 // player and enemy variables
-var miniPlayer;
 var mainPlayer;
-var initMiniPos;
-var miniEnemy;
+var initPos;
+var bigEnemy;
+var escape;
 
 //map structure
 var miniRows = 5;
@@ -15,13 +15,14 @@ var map;
 var bigMap;
 
 //equipment variables
-var playerSonar = false;
-var playerRadar = false;
+var playerSonar = true;
+var playerRadar = true;
 var armor = 0;
 var maxHP = 4;
-var vision = 2;
+var vision = 10;
+var enemySize = 1;
 var moves = 0;
-var movesUntilBigMoves = 10;
+var movesUntilBigMoves =2;
 
 //display values
 var cover;
@@ -104,15 +105,15 @@ function initCell(chr,x,y){
 function dispStats(){
 	var cell = ' ';
 	for (var i = 0; i < bigMap.length; i++) {
-		if(bigMap[i].y == miniPlayer.y && bigMap[i].x == miniPlayer.x)
+		if(i== mainPlayer.mapPos)
 		{
 			cell = bigMap[i].map[mainPlayer.y][mainPlayer.x];
-			setCover(miniPlayer,cell);
+			setCover(mainPlayer,cell);
 		}
 	}
-	cover.content=cell+" = "+miniPlayer.cover;
-	health.content = miniPlayer.hp +" / "+ maxHP+" HP";
-	defense.content = miniPlayer.def +" Armor";
+	cover.content=cell+" = "+mainPlayer.cover;
+	health.content = mainPlayer.hp +" / "+ maxHP+" HP";
+	defense.content = mainPlayer.def +" Armor";
 }
 function dispCurrentHealth(){
 	health.content = mainPlayer.hp + " HP";
@@ -145,36 +146,35 @@ function setCover(actor, cell)
 function scanMap()
 {
 	for (var i = 0; i < bigMap.length; i++) {
-
-		if(bigMap[i].x == miniPlayer.x && bigMap[i].y == miniPlayer.y)
+		if(i == mainPlayer.mapPos)
 			bigMap[i].visited =true;
 		if(bigMap[i].visited == true && !
-			(bigMap[i].x == miniEnemy.x && bigMap[i].y == miniEnemy.y && 
-				((miniPlayer.x == miniEnemy.x && miniPlayer.y == miniEnemy.y)
-					|| playerSonar == true)))
+			(i == bigEnemy.mapPos &&(i == mainPlayer.mapPos || playerSonar == true)))
 			asciidisplay[bigMap[i].y][bigMap[i].x].font.fill ='#2e2';
-		if(!(bigMap[i].x == miniEnemy.x && bigMap[i].y == miniEnemy.y) && playerSonar)
-				asciidisplay[bigMap[i].y][bigMap[i].x].font.fill = bigMap[i].visited == true ? '#2e2' :'#fff';
+		if(!(i == bigEnemy.mapPos) && playerSonar)
+			asciidisplay[bigMap[i].y][bigMap[i].x].font.fill = bigMap[i].visited == true ? '#2e2' :'#fff';
 			
 	}
-	if((miniPlayer.x == miniEnemy.x && miniPlayer.y == miniEnemy.y)|| playerSonar == true)
+	if((mainPlayer.mapPos == bigEnemy.mapPos)|| playerSonar == true)
 	{
-		asciidisplay[miniEnemy.y][miniEnemy.x].font.fill = '#e22';
+		asciidisplay[bigMap[bigEnemy.mapPos].y][bigMap[bigEnemy.mapPos].x].font.fill = '#e22';
 	}
-	asciidisplay[initMiniPos.y][initMiniPos.x].font.fill = '#55f';
-	asciidisplay[initMiniPos.y][initMiniPos.x].content = map[initMiniPos.y][initMiniPos.x];
+	asciidisplay[bigMap[initPos].y][bigMap[initPos].x].font.fill = '#55f';
+	asciidisplay[bigMap[initPos].y][bigMap[initPos].x].content = map[bigMap[initPos].y][bigMap[initPos].x];
 
-	if(initMiniPos.x == miniPlayer.x && initMiniPos.y==miniPlayer.y)
+	if(initPos == mainPlayer.mapPos)
 	{
-		asciidisplay[initMiniPos.y][initMiniPos.x].content = 'O';
+		asciidisplay[bigMap[initPos].y][bigMap[initPos].x].content = mainPlayer.char;
 	}
-	if(initMiniPos.x == miniEnemy.x && initMiniPos.y==miniEnemy.y)
+	if(initPos == bigEnemy.mapPos)
 	{
-		asciidisplay[initMiniPos.y][initMiniPos.x].content = '!';
-		if(miniPlayer.x == miniEnemy.x && miniPlayer.y == miniEnemy.y)
-			asciidisplay[initMiniPos.y][initMiniPos.x].font.fill = '#e22';
+		asciidisplay[bigMap[initPos].y][bigMap[initPos].x].content = '!';
+
+
+		if(mainPlayer.mapPos == bigEnemy.mapPos)
+			asciidisplay[bigMap[initPos].y][bigMap[initPos].x].font.fill = '#e22';
 		else	
-			asciidisplay[initMiniPos.y][initMiniPos.x].font.fill = '#ee2';
+			asciidisplay[bigMap[initPos].y][bigMap[initPos].x].font.fill = '#ee2';
 	}
 }
 
@@ -229,10 +229,17 @@ function onKeyUp(event){
 			acted = true;
 			break;
 	}
-	if(moves >= movesUntilBigMoves && (!(miniPlayer.x ==miniEnemy.x && miniPlayer.y==miniEnemy.y)))
+	if(moves >= movesUntilBigMoves || bigEnemy.mapPos == mainPlayer.mapPos)
 	{
-		aiAct(miniEnemy);
+		aiAct(bigEnemy);
 		moves = 0;
+	}
+
+	for (var i = 0; i < enemyList.length; i++) {
+		if(enemyList[i].mapPos == mainPlayer.mapPos)
+		{
+			aiAct(enemyList[i]);
+		}
 	}
 	
 	drawMiniActors();
@@ -255,7 +262,7 @@ function drawMap(){
 
 function drawMainMap(){
 	for (var i = 0; i < bigMap.length; i++) {
-		if(bigMap[i].x == miniPlayer.x && bigMap[i].y== miniPlayer.y)
+		if(i == mainPlayer.mapPos)
 			{
 				var mapObj = bigMap[i].map;
 				for (var y = 0; y < mapObj.length; y++) {
@@ -430,57 +437,136 @@ function generatePuddle(area, rows, cols){
 	return area;
 }
 function drawMainActors(){
+	for (var i = 0; i < enemyList.length; i++) {
+		if(enemyList[i].mapPos == mainPlayer.mapPos)
+		{
+			var x = enemyList[i].x;
+			var y = enemyList[i].y;
+
+			areaAscii[y][x].content = enemyList[i].char;
+		}
+	}
+
+	if(mainPlayer.mapPos == bigEnemy.mapPos)
+	{
+		var minX = bigEnemy.x - enemySize;
+		var maxX = bigEnemy.x + enemySize;
+		var minY = bigEnemy.y - enemySize;
+		var maxY = bigEnemy.y + enemySize;
+
+		for(var y = 0; y < mapCols; y++){
+			for (var x = 0; x < mapRows; x++) {
+				if((minX<=x&&x<=maxX&&minY<=y&&y<=maxY))
+					areaAscii[y][x].content= bigEnemy.char;
+			}
+		}
+	}
+	if(mainPlayer.mapPos == initPos)
+	{
+		var x = escape.x;
+		var y = escape.y;	
+		areaAscii[y][x].content = escape.char;
+		areaAscii[y][x].font.fill = '#55f';
+
+	}
 	var x = mainPlayer.x;
 	var y = mainPlayer.y;
 
-	areaAscii[y][x].content = 'O';
+	areaAscii[y][x].content = mainPlayer.char;
 
 }
 
 function drawMiniActors(){
-	var x = miniPlayer.x;
-	var y = miniPlayer.y;
+	var mapPos = mainPlayer.mapPos;
+	var x = bigMap[mapPos].x;
+	var y = bigMap[mapPos].y;
 
-	asciidisplay[y][x].content = 'O';
+	asciidisplay[y][x].content = mainPlayer.char;
 
-	x = miniEnemy.x;
-	y = miniEnemy.y;
+	mapPos = bigEnemy.mapPos;
+	x = bigMap[mapPos].x;
+	y = bigMap[mapPos].y;
+	
 	if(playerSonar == true)
 	{
-		asciidisplay[y][x].content = 'X';
+		asciidisplay[y][x].content = bigEnemy.char;
 	}
 
-	if(miniPlayer.x == miniEnemy.x && miniPlayer.y == miniEnemy.y)
+	if(mainPlayer.mapPos == bigEnemy.mapPos)
 	{
 		asciidisplay[y][x].content = '!';
 		asciidisplay[y][x].font.fill = '#e22';
-		miniEnemy.hunt = 5;
-		//miniEnemy.pause = true;
+		bigEnemy.hunt = 5;
 	}	
 }
 
 function miniCanGo(actor, dir){
-	return actor.x+dir.x >= 0 &&
-		   actor.x+dir.x <= miniCols - 1 &&
-		   actor.y+dir.y >= 0 &&
-		   actor.y+dir.y <= miniRows - 1 &&
-		   (actor==miniPlayer || map[actor.y+dir.y][actor.x+dir.x] == '.');
+	var x = bigMap[actor.mapPos].x;
+	var y = bigMap[actor.mapPos].y;
+	var canGo = false;
+	var enemy = false;
+	var mapPos = getBigMapPos(y+dir.y,x+dir.x);
+
+	canGo = mapPos>-1 && mapPos<bigMap.length && !(actor==bigEnemy && map[bigMap[mapPos].y][bigMap[mapPos].x] == '#');
+	if(canGo == true)
+	{
+		var xPos = actor.x + dir.x;
+			if (xPos < 0)
+				xPos = mapCols-1;
+			if(xPos > mapCols-1)
+				xPos = 0;
+		var yPos = actor.y + dir.y;
+		if (yPos < 0)
+				yPos = mapRows-1;
+			if(yPos > mapRows-1)
+				yPos = 0;
+		cell = bigMap[mapPos].map[yPos][xPos];
+		canGo = (cell != '#' && (cell != 'w' || actor.swim == true));
+
+		for (var i = 0; i < enemyList.length; i++) {
+			if(enemyList[i].mapPos == i)
+			{
+				enemy = (enemyList[i].x == xPos && enemyList[i].y);
+			}
+		}
+	}
+
+	if(enemy == true)
+		canGo = false;
+	return canGo;
 }
 
 function mainCanGo(actor,dir){
 	var canGo = false;
+	var enemy = false;
 	if(dir.x !=0)
 	{
 		var destination = actor.x + dir.x;
 		if(destination < 0)
-			canGo = miniCanGo(miniPlayer,{x:-1, y:0});
+			canGo = miniCanGo(actor,{x:-1, y:0});
 		else if(destination > mapCols-1)
-			canGo = miniCanGo(miniPlayer, {x:1, y:0});
+			canGo = miniCanGo(actor, {x:1, y:0});
 		else{
 				for (var i = 0; i < bigMap.length; i++) {
-				if(bigMap[i].x == miniPlayer.x && bigMap[i].y == miniPlayer.y)
-				{	var cell = bigMap[i].map[actor.y][actor.x+dir.x];
-					canGo =  (cell != '#' && (cell != 'w' || actor.swim == true));
+				if(i == actor.mapPos)
+				{	var x = actor.x+dir.x;
+					var y = actor.y;
+					var cell = bigMap[i].map[y][x];
+					canGo = (cell != '#' && (cell != 'w' || actor.swim == true));
+					if(actor != mainPlayer && actor!= bigEnemy)
+					{
+						for (var i = 0; i < enemyList.length; i++) {
+							if(enemyList[i] != actor && enemyList[i].mapPos == actor.mapPos);
+							enemy = ((x == enemyList[i].x && y== enemyList[i].y) || (x == mainPlayer.x && y==mainPlayer.y && enemyList[i].mapPos == mainPlayer.mapPos));
+						}
+					}
+					if(actor == mainPlayer)
+					{
+						for (var i = 0; i < enemyList.length; i++) {
+							enemy = (enemyList[i].mapPos == actor.mapPos && x == enemyList[i].x && y== enemyList[i].y);
+						}
+					}
+
 				}
 			}
 		}	
@@ -491,24 +577,43 @@ function mainCanGo(actor,dir){
 	{
 		var destination = actor.y + dir.y;
 		if(destination < 0)
-			canGo = miniCanGo(miniPlayer,{x:0, y:-1});
+			canGo = miniCanGo(actor,{x:0, y:-1});
 		else if(destination > mapRows-1)
-			canGo = miniCanGo(miniPlayer, {x:0, y:1});
+			canGo = miniCanGo(actor, {x:0, y:1});
 		else{
+				var x = actor.x;
+				var y = actor.y+dir.y;
 				for (var i = 0; i < bigMap.length; i++) {
-				if(bigMap[i].x == miniPlayer.x && bigMap[i].y == miniPlayer.y)
-				{	var cell = bigMap[i].map[actor.y+dir.y][actor.x];
+				if(i == actor.mapPos)
+				{	var cell = bigMap[i].map[y][x];
 					canGo = (cell != '#' && (cell != 'w' || actor.swim == true));
+					if(actor != mainPlayer && actor!= bigEnemy)
+					{
+						for (var i = 0; i < enemyList.length; i++) {
+							if(enemyList[i] != actor && enemyList[i].mapPos == actor.mapPos);
+							enemy = ((x == enemyList[i].x && y== enemyList[i].y) || (x == mainPlayer.x && y==mainPlayer.y && enemyList[i].mapPos == mainPlayer.mapPos));
+						}
+					}
+					if(actor == mainPlayer)
+					{
+						for (var i = 0; i < enemyList.length; i++) {
+							enemy = (enemyList[i].mapPos == actor.mapPos && x == enemyList[i].x && y== enemyList[i].y);
+						}
+					}
 				}
 			}
 		}	
 	}
 	
+	if(enemy == true)
+		canGo = false;
 	return canGo;
 }
 function mainMoveTo(actor,dir){
 	if(!mainCanGo(actor,dir))
 		return false;
+	var x = bigMap[actor.mapPos].x;
+	var y = bigMap[actor.mapPos].y;
 
 	if(dir.x !=0)
 	{
@@ -516,11 +621,11 @@ function mainMoveTo(actor,dir){
 		if(destination < 0)
 		{
 			actor.x = mapCols-1;
-			miniMoveTo(miniPlayer, dir);
+			actor.mapPos= getBigMapPos(y+dir.y,x+dir.x);
 		}
 		else if(destination > mapCols-1){
 			actor.x = 0;
-			miniMoveTo(miniPlayer, dir);
+			actor.mapPos= getBigMapPos(y+dir.y,x+dir.x);
 		}
 		else
 			actor.x+=dir.x;
@@ -531,11 +636,11 @@ function mainMoveTo(actor,dir){
 		if(destination < 0)
 		{
 			actor.y = mapRows-1;
-			miniMoveTo(miniPlayer, dir);
+			actor.mapPos= getBigMapPos(y+dir.y,x+dir.x);
 		}
 		else if(destination > mapCols-1){
 			actor.y = 0;
-			miniMoveTo(miniPlayer, dir);
+			actor.mapPos= getBigMapPos(y+dir.y,x+dir.x);
 		}
 		else
 			actor.y+=dir.y;
@@ -555,45 +660,46 @@ function miniMoveTo(actor,dir){
 	return true;
 }
 function initPlayer(){
-	//create miniMapPlayer
-	miniPlayer = { x:0, y:0, hp:maxHP, v:true, hunt:0, pause:false, swim:false, cover:0, def:armor};
-	mainPlayer = { x:0, y:0, hp:maxHP, v:true, hunt:0, pause:false, swim:false, cover:0, def:armor};
-	switch	(randomInt(9))
-	{
-		case 1:
-		case 2:
-			miniPlayer.y =randomInt(miniCols-1);
-			break;
-		case 3:
-		case 4:
-			miniPlayer.x = miniRows-1;
-			miniPlayer.y =randomInt(miniCols-1);
-			break;
-		case 5:
-		case 6:
-			miniPlayer.x = randomInt(miniRows-1);
-			break;
-		case 7:
-		case 8:
-		case 9:
-			miniPlayer.x = randomInt(miniRows-1);
-			miniPlayer.y = miniCols-1;
-			break;
-	}
-	var x = miniPlayer.x;
-	var y = miniPlayer.y;
 	
+	var x = 0;
+	var y = 0;
 	var top = false;
 	var bottom = false;
 	var left = false;
 	var right = false;
-	if(y == 0)
-		top = true;
-	if(y == miniRows-1)
-		bottom = true;
+
+	mainPlayer = { x:0, y:0, hp:maxHP, v:true, hunt:0, pause:false, swim:false, cover:0, def:armor, char:'O'};
+	var temp = randomInt(9);
+	switch	(temp)
+	{
+		case 1:
+		case 2:
+			y =randomInt(miniCols-1);
+			break;
+		case 3:
+		case 4:
+			x = miniCols-1;
+			y =randomInt(miniCols-1);
+			break;
+		case 5:
+		case 6:
+			x = randomInt(miniCols-1);
+			break;
+		case 7:
+		case 8:
+		case 9:
+			x = randomInt(miniRows-1);
+			y = miniRows-1;
+			break;
+	}		
+	
 	if(x == 0)
+		top = true;
+	if(x == miniRows-1)
+		bottom = true;
+	if(y == 0)
 		left = true;
-	if(x == miniCols-1)
+	if(y == miniCols-1)
 		right = true;
 
 	if(left == true && top==true)
@@ -628,7 +734,10 @@ function initPlayer(){
 			bottom = false;
 	}
 
-	initMiniPos= {x:miniPlayer.x, y: miniPlayer.y};
+	initPos= getBigMapPos(x,y);
+	
+
+	mainPlayer.mapPos = initPos
 	for (var i = 0; i < bigMap.length; i++) {
 		if(bigMap[i].x == x && bigMap[i].y == y)
 		{
@@ -644,28 +753,100 @@ function initPlayer(){
 			} while(bigMap[i].map[mainPlayer.y][mainPlayer.x] == 'W')
 		}
 	}
+	escape = {x:mainPlayer.x,y:mainPlayer.y,char:'V'};
 }
 
+function initEnemies()
+{
+	var indoors = false;
+	enemyList = [];
+	var maxEnemies = 3;
+	for (var i = 0; i < bigMap.length; i++) {
+		var enemies = 0;
+		if(map[bigMap[i].y][bigMap[i].x] == '#')
+			indoors = true;
+		else
+			indoors = false;
+
+		for (var y = 0; y < bigMap[i].map.length; y++) {
+			for (var x = 0; x < bigMap[i].map[y].length; x++) {
+				if(bigMap[i].map[y][x] != 'w' && bigMap[i].map[y][x] != '#' && bigMap[i].map[y][x] != 'D'){
+					if(enemies< maxEnemies)
+					{
+						if(Math.random() > 0.98)
+						{
+							var enemy = generateEnemy(x,y,i,indoors,bigMap[i].map[y][x]);
+							enemyList.push(enemy);
+							enemies++;
+						}
+					}	
+				}
+			}
+		}
+	}
+}
+
+function generateEnemy(x,y,i,indoors,cell)
+{ 
+	var char = 'H';
+	var maxHp = 4;
+
+	if(indoors==true)
+	{
+		char = 'Z';
+		maxHp = 2;
+	}
+
+	var enemy = {x:x,y:y,hp:randomInt(maxHp),v:true,def:1, hunt:0, pause:false,swim:false, cover:0,mapPos:i, char: char}
+	setCover(enemy,cell);
+	return enemy;
+}
 function initMiniActors(){
 	initPlayer();
-	miniEnemy = { x:0, y:0, hp:10, v:playerSonar, def: 3, hunt:0, pause:false, swim:false, cover:0};
+	initEnemies();
+	var x = -1;
+	var y = -1;
+	var pos = -1;
+
 	do{
-		//pick random position that is on the floor and not occupied
-		var y = randomInt(miniRows);
-		var x = randomInt(miniCols);
-		miniEnemy.x = x;
-		miniEnemy.y = y;
-	} while (map[y][x] == '#' || (miniPlayer.x == x && miniPlayer.y == y));
+		//pick random position that is not a building or in the same spot the player is in
+		y = randomInt(miniRows);
+		x = randomInt(miniCols);
+		pos =  getBigMapPos(y,x);
+	} while (map[y][x] == '#' || (mainPlayer.mapPos == pos));
+
+	y = randomInt(mapRows-2) +1;
+	x = randomInt(mapCols-2) +1;
+	bigEnemy = { x:x, y:y, hp:10, v:playerSonar, def: 3, hunt:0, pause:false, swim:true, cover:0, mapPos:pos, char: 'E'};
+}
+
+function getBigMapPos(yPos,xPos)
+{
+	for (var i = 0; i < bigMap.length; i++) {
+		if(bigMap[i].y == yPos && bigMap[i].x == xPos)
+			return i;
+	}
 }
 
 function aiAct(actor) {
 	var directions = [{x:-1, y:0},{x:1, y:0},{x:0, y:-1},{x:0, y:1},{x:0, y:0},{x:0, y:0}];
-	var dx = miniPlayer.x - actor.x;
-	var dy = miniPlayer.y - actor.y;
+	var dx = 0;
+	var dy = 0;
 
+	if(actor.mapPos == mainPlayer.mapPos)
+	{
+		dx = mainPlayer.x - actor.x;
+		dy = mainPlayer.y - actor.y;
+
+	}
+	else
+	{
+		dx = bigMap[mainPlayer.mapPos].x - bigMap[actor.mapPos].x;
+		dy = bigMap[mainPlayer.mapPos].y - bigMap[actor.mapPos].y;
+	}	
 	if(actor.hunt == 0)
 		//try to move in a random direction until one works
-		while (!miniMoveTo(actor, directions[randomInt(directions.length)]));
+		while (!mainMoveTo(actor, directions[randomInt(directions.length)]));
 	else
 	{
 		actor.hunt--;
@@ -675,26 +856,26 @@ function aiAct(actor) {
 			if(Math.abs(dx) > Math.abs(dy)) {
 				if(dx < 0) {
 					//left
-					miniMoveTo(actor,directions[0]);
+					mainMoveTo(actor,directions[0]);
 				} else if (dx > 0) {
 					//right
-					miniMoveTo(actor, directions[1]);
+					mainMoveTo(actor, directions[1]);
 				}
 			}
 			else {
-				if(dy < 0 && miniCanGo(actor,directions[2])){
+				if(dy < 0 && mainCanGo(actor,directions[2])){
 					//up
-					miniMoveTo(actor, directions[2]);
-				} else if (dy > 0 && miniCanGo(actor,directions[3])){
+					mainMoveTo(actor, directions[2]);
+				} else if (dy > 0 && mainCanGo(actor,directions[3])){
 					//down
-					miniMoveTo(actor, directions[3]);
+					mainMoveTo(actor, directions[3]);
 				}
-				else if(dx < 0 && miniCanGo(actor,directions[0])) {
+				else if(dx < 0 && mainCanGo(actor,directions[0])) {
 					//left
-					miniMoveTo(actor,directions[0]);
-				} else if (dx > 0 && miniCanGo(actor,directions[1])) {
+					mainMoveTo(actor,directions[0]);
+				} else if (dx > 0 && mainCanGo(actor,directions[1])) {
 					//right
-					miniMoveTo(actor, directions[1]);
+					mainMoveTo(actor, directions[1]);
 				}
 			}
 		}
