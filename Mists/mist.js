@@ -491,7 +491,7 @@ function causeDamage(target,attacker)
 
 	if(mainPlayer.hp < 1) {
 		//game over
-		var gameOver = game.add.text(game.world.centerX, game.world.centerY, 'Game Over\nCtrl+r to restart', { fill : '#e22', align: "center" } );
+		var gameOver = game.add.text(game.world.centerX, game.world.centerY, 'Game Over\n refresh to restart', { fill : '#e22', align: "center" } );
         gameOver.anchor.setTo(0.5,0.5);
 	}
 }
