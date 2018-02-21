@@ -159,8 +159,8 @@ function scanMap()
 	{
 		asciidisplay[bigMap[bigEnemy.mapPos].y][bigMap[bigEnemy.mapPos].x].font.fill = '#e22';
 	}
-//	asciidisplay[bigMap[initPos].y][bigMap[initPos].x].font.fill = '#55f';
-//	asciidisplay[bigMap[initPos].y][bigMap[initPos].x].content = map[bigMap[initPos].y][bigMap[initPos].x];
+	asciidisplay[bigMap[initPos].y][bigMap[initPos].x].font.fill = '#55f';
+	asciidisplay[bigMap[initPos].y][bigMap[initPos].x].content = map[bigMap[initPos].y][bigMap[initPos].x];
 
 	if(initPos == mainPlayer.mapPos)
 	{
@@ -470,6 +470,10 @@ function drawMainActors(){
 		var y = escape.y;	
 		areaAscii[y][x].content = escape.char;
 		areaAscii[y][x].font.fill = '#55f';
+	}
+	else
+	{
+		areaAscii[y][x].font.fill = '#fff';
 	}
 
 	var x = mainPlayer.x;
