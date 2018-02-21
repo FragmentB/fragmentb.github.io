@@ -118,7 +118,7 @@ function dispStats(){
 	cover.content=cell+" = "+mainPlayer.cover;
 	health.content = mainPlayer.hp +"/"+ maxHP+"HP";
 	defense.content = mainPlayer.def +" Armor";
-	dispWeapon = weapon.Name;
+	dispWeapon = weapon.name;
 }
 function dispCurrentHealth(){
 	health.content = mainPlayer.hp + " HP";
@@ -230,7 +230,7 @@ function onKeyUp(event){
 				moves++;
 			break;
 		case Phaser.Keyboard.SPACEBAR:
-			//attack(mainPlayer, weapon)
+			attack(mainPlayer, weapon);
 			moves++;
 			break;
 		case Phaser.Keyboard.ESCAPE:
@@ -506,6 +506,7 @@ function causeDamage(target,attacker)
         gameOver.anchor.setTo(0.5,0.5);
 	}
 }
+
 function drawMiniActors(){
 	var mapPos = mainPlayer.mapPos;
 	var x = bigMap[mapPos].x;
@@ -934,4 +935,17 @@ function aiAct(actor) {
 			actor.pause = false;
 		}
 	}	
+}
+
+function removeText(text) {
+
+    text.destroy();
+
+}
+
+function Attack(actor, weapon){
+	var result = game.add.text(game.world.centerX, game.world.centerY, 'MISS', { fill : '#e22', align: "center" } );
+	    result.anchor.setTo(0.5,0.5);
+		setTimeout(removeText(result), 2000)
+	return 0;
 }
