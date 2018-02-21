@@ -118,7 +118,7 @@ function dispStats(){
 	cover.content=cell+" = "+mainPlayer.cover;
 	health.content = mainPlayer.hp +"/"+ maxHP+"HP";
 	defense.content = mainPlayer.def +" Armor";
-	dispWeapon = weapon.name;
+	dispWeapon.content = weapon.name;
 }
 function dispCurrentHealth(){
 	health.content = mainPlayer.hp + " HP";
@@ -943,7 +943,7 @@ function removeText(text) {
 
 }
 
-function Attack(actor, weapon){
+function attack(actor, weapon){
 	var result = game.add.text(game.world.centerX, game.world.centerY, 'MISS', { fill : '#e22', align: "center" } );
 	    result.anchor.setTo(0.5,0.5);
 		setTimeout(removeText(result), 2000)
