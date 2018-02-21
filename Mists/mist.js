@@ -471,7 +471,7 @@ function drawMainActors(){
 		areaAscii[y][x].content = escape.char;
 		areaAscii[y][x].font.fill = '#55f';
 	}
-	else
+	if(mainPlayer.mapPos != initPos)
 	{
 		var x = escape.x;
 		var y = escape.y;
