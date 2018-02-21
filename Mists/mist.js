@@ -938,14 +938,12 @@ function aiAct(actor) {
 }
 
 function removeText(text) {
-
     text.destroy();
-
 }
 
 function attack(actor, weapon){
 	var result = game.add.text(game.world.centerX, game.world.centerY, 'MISS', { fill : '#e22', align: "center" } );
 	    result.anchor.setTo(0.5,0.5);
-		setTimeout(removeText(result), 2000)
+		setTimeout(removeText(result), 2000);
 	return 0;
 }
