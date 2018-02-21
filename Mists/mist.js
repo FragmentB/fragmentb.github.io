@@ -50,7 +50,7 @@ function create() {
 	var style = {font: size+"px monospace", fill:"#fff"};
 	//adding text displays for health, defense and cover
 	game.add.text((0+size),(screenHeight-(12*size)),"Weapon:",style);
-	dispWeapon = game.add.text((0+size),(screenHeight-(size*8))," ",style);
+	dispWeapon = game.add.text((0+size),(screenHeight-(size*11)),"Ham Fist",style);
 	game.add.text((0+size),(screenHeight-(9*size)),"Health:",style);
 	health = game.add.text((0+size),(screenHeight-(size*8))," ",style);
 	game.add.text((0+size),(screenHeight-(6*size)),"Defense:",style);
