@@ -153,14 +153,17 @@ function scanMap()
 			asciidisplay[bigMap[i].y][bigMap[i].x].font.fill ='#2e2';
 		if(!(i == bigEnemy.mapPos) && playerSonar)
 			asciidisplay[bigMap[i].y][bigMap[i].x].font.fill = bigMap[i].visited == true ? '#2e2' :'#fff';
-			
+		if(mainPlayer.mapPos == initPos)
+		{
+			asciidisplay[bigMap[initPos].y][bigMap[initPos].x].font.fill = '#55f';
+			asciidisplay[bigMap[initPos].y][bigMap[initPos].x].content = map[bigMap[initPos].y][bigMap[initPos].x];
+		}
 	}
 	if((mainPlayer.mapPos == bigEnemy.mapPos)|| playerSonar == true)
 	{
 		asciidisplay[bigMap[bigEnemy.mapPos].y][bigMap[bigEnemy.mapPos].x].font.fill = '#e22';
 	}
-	asciidisplay[bigMap[initPos].y][bigMap[initPos].x].font.fill = '#55f';
-	asciidisplay[bigMap[initPos].y][bigMap[initPos].x].content = map[bigMap[initPos].y][bigMap[initPos].x];
+
 
 	if(initPos == mainPlayer.mapPos)
 	{
@@ -471,10 +474,7 @@ function drawMainActors(){
 		areaAscii[y][x].content = escape.char;
 		areaAscii[y][x].font.fill = '#55f';
 	}
-	else
-	{
-		areaAscii[y][x].font.fill = '#fff';
-	}
+
 	var x = mainPlayer.x;
 	var y = mainPlayer.y;
 	areaAscii[y][x].content = mainPlayer.char;
