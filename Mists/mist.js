@@ -158,6 +158,8 @@ function scanMap()
 			asciidisplay[bigMap[initPos].y][bigMap[initPos].x].font.fill = '#55f';
 			asciidisplay[bigMap[initPos].y][bigMap[initPos].x].content = map[bigMap[initPos].y][bigMap[initPos].x];
 		}
+		else
+			asciidisplay[bigMap[initPos].y][bigMap[initPos].x].font.fill = '#fff';
 	}
 	if((mainPlayer.mapPos == bigEnemy.mapPos)|| playerSonar == true)
 	{
