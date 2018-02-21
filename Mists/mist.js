@@ -23,11 +23,13 @@ var vision = 2;
 var enemySize = 1;
 var moves = 0;
 var movesUntilBigMoves =2;
+var weapon;
 
 //display values
 var cover;
 var health;
 var defense;
+var dispWeapon;
 
 //screen
 var asciidisplay;
@@ -47,6 +49,8 @@ function create() {
 	var size = fontSize*.7;
 	var style = {font: size+"px monospace", fill:"#fff"};
 	//adding text displays for health, defense and cover
+	game.add.text((0+size),(screenHeight-(12*size)),"Weapon:",style);
+	dispWeapon = game.add.text((0+size),(screenHeight-(size*8))," ",style);
 	game.add.text((0+size),(screenHeight-(9*size)),"Health:",style);
 	health = game.add.text((0+size),(screenHeight-(size*8))," ",style);
 	game.add.text((0+size),(screenHeight-(6*size)),"Defense:",style);
@@ -114,6 +118,7 @@ function dispStats(){
 	cover.content=cell+" = "+mainPlayer.cover;
 	health.content = mainPlayer.hp +"/"+ maxHP+"HP";
 	defense.content = mainPlayer.def +" Armor";
+	dispWeapon = weapon.Name;
 }
 function dispCurrentHealth(){
 	health.content = mainPlayer.hp + " HP";
@@ -703,6 +708,7 @@ function initPlayer(){
 	var right = false;
 
 	mainPlayer = { x:0, y:0, hp:maxHP, v:true, hunt:0, pause:false, swim:false, cover:0, pow:0, def:armor, char:'O', facing: null};
+	weapon = {name:"Knife", range: 1, damage: 1};
 	var temp = randomInt(9);
 	switch	(temp)
 	{
