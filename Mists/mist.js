@@ -59,7 +59,7 @@ function create() {
 	defense = game.add.text((0+size),(screenHeight-(size*5))," ",style);
 	game.add.text((0+size),(screenHeight-(3*size)),"Cover:",style);
 	cover = game.add.text((0+size),(screenHeight-(size*2))," ",style);
-	info = game.add.text(((miniCols+2 * fontSize)+size),(screenHeight-(0*size)),defaultInfo,style);
+	info = game.add.text(((miniCols+2 * 0.6 * fontSize)+size),(screenHeight-(0*size)),defaultInfo,style);
 
 	//map
 	initMap();
@@ -944,6 +944,5 @@ function removeText(text) {
 }
 
 function attack(actor, weapon){
-		info.content = "Attack Missed";
-	return 0;
+	info.content = "Attack Missed";
 }
