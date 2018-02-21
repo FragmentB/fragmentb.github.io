@@ -30,6 +30,8 @@ var cover;
 var health;
 var defense;
 var dispWeapon;
+var info;
+var defaultInfo = "Welcome to the Mists";
 
 //screen
 var asciidisplay;
@@ -50,14 +52,14 @@ function create() {
 	var style = {font: size+"px monospace", fill:"#fff"};
 	//adding text displays for health, defense and cover
 	game.add.text((0+size),(screenHeight-(12*size)),"Weapon:",style);
-	dispWeapon = game.add.text((0+size),(screenHeight-(size*11)),"Ham Fist",style);
+	dispWeapon = game.add.text((0+size),(screenHeight-(size*11)),"",style);
 	game.add.text((0+size),(screenHeight-(9*size)),"Health:",style);
 	health = game.add.text((0+size),(screenHeight-(size*8))," ",style);
 	game.add.text((0+size),(screenHeight-(6*size)),"Defense:",style);
 	defense = game.add.text((0+size),(screenHeight-(size*5))," ",style);
 	game.add.text((0+size),(screenHeight-(3*size)),"Cover:",style);
 	cover = game.add.text((0+size),(screenHeight-(size*2))," ",style);
-
+	info = game.add.text(((miniCols+2 * 0.6 * fontSize)+size),(screenHeight-(1*size)),defaultInfo,style);
 
 	//map
 	initMap();
@@ -942,8 +944,7 @@ function removeText(text) {
 }
 
 function attack(actor, weapon){
-	var result = game.add.text(game.world.centerX, game.world.centerY, 'MISS', { fill : '#e22', align: "center" } );
-	    result.anchor.setTo(0.5,0.5);
-		setTimeout(removeText(result), 2000);
+		info.content = "Attack Missed";
+		game.time.events.add(Phaser.Timer.SECOND * 4, info.content = defaultInfo, this);
 	return 0;
 }
