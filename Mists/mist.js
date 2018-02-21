@@ -470,7 +470,10 @@ function drawMainActors(){
 		var y = escape.y;	
 		areaAscii[y][x].content = escape.char;
 		areaAscii[y][x].font.fill = '#55f';
-
+	}
+	else
+	{
+		areaAscii[y][x].font.fill = '#fff';
 	}
 	var x = mainPlayer.x;
 	var y = mainPlayer.y;
