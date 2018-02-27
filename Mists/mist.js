@@ -948,11 +948,6 @@ function resetText()
 	info.content = defaultInfo;
 }
 
-function getDamage(weapon, actor)
-{
-	var min = 0;
-	var max = 1;
-}
 
 function attack(actor, weapon){
 	info.content = "Attack Missed";
