@@ -434,9 +434,17 @@ function generateOutside(rows,cols)
 	return area;
 }
 
-function randomInt(max, min = 1){
-	return Math.floor(Math.random() * (max - min + 1)) + min;
+function randomInt(max,min){
+	if(typeof min !== "undefined")
+	{
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+	else
+	{
+		return Math.floor(Math.random() * max);
+	}
 }
+
 function generatePuddle(area, rows, cols){
 	var x = randomInt(rows-2);
 	var y = randomInt(cols-2);
@@ -447,6 +455,7 @@ function generatePuddle(area, rows, cols){
 	area[y+1][x+1] = 'w';
 	return area;
 }
+
 function drawMainActors(){
 	for (var i = 0; i < enemyList.length; i++) {
 		if(enemyList[i].mapPos == mainPlayer.mapPos)
