@@ -943,8 +943,14 @@ function aiAct(actor) {
 function removeText(text) {
     text.destroy();
 }
+function resetText()
+{
+	info.content = defaultInfo;
+}
+
 
 function attack(actor, weapon){
 	info.content = "Attack Missed";
+	  game.time.events.add(Phaser.Timer.SECOND * 4, resetText, this);
 	return 0;
 }
