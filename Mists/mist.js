@@ -59,7 +59,7 @@ function create() {
 	defense = game.add.text((0+size),(screenHeight-(size*5))," ",style);
 	game.add.text((0+size),(screenHeight-(3*size)),"Cover:",style);
 	cover = game.add.text((0+size),(screenHeight-(size*2))," ",style);
-	info = game.add.text(((miniCols+2 * fontSize * 1.3)+size),(screenHeight-(size*2)),defaultInfo,style);
+	info = game.add.text(((miniCols+2 * fontSize * 1.5)+size),(screenHeight-(size*2)),defaultInfo,style);
 	
 
 	//map
