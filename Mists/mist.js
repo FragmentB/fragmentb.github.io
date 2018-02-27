@@ -435,7 +435,7 @@ function generateOutside(rows,cols)
 }
 
 function randomInt(max, min = 1){
-	Math.floor(Math.random() * (max - min + 1)) + min;
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function generatePuddle(area, rows, cols){
 	var x = randomInt(rows-2);
@@ -948,6 +948,11 @@ function resetText()
 	info.content = defaultInfo;
 }
 
+function getDamage(weapon, actor)
+{
+	var min = 0;
+	var max = 1;
+}
 
 function attack(actor, weapon){
 	info.content = "Attack Missed";
