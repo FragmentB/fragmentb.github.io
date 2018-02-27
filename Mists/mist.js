@@ -951,6 +951,6 @@ function resetText()
 
 function attack(actor, weapon){
 	info.content = "Attack Missed";
-	  game.time.events.add(Phaser.Timer.SECOND * 4, resetText, game);
+	game.time.events.add(Phaser.Timer.SECOND * 4, resetText, this);
 	return 0;
 }
