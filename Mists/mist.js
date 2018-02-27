@@ -434,8 +434,8 @@ function generateOutside(rows,cols)
 	return area;
 }
 
-function randomInt(max){
-	return Math.floor(Math.random() * max);
+function randomInt(max, min = 1){
+	Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function generatePuddle(area, rows, cols){
 	var x = randomInt(rows-2);
@@ -711,7 +711,7 @@ function initPlayer(){
 	var left = false;
 	var right = false;
 
-	mainPlayer = { x:0, y:0, hp:maxHP, v:true, hunt:0, pause:false, swim:false, cover:0, pow:0, def:armor, char:'O', facing: null};
+	mainPlayer = { x:0, y:0, hp:maxHP, luck:1, v:true, hunt:0, pause:false, swim:false, cover:0, pow:0, def:armor, char:'O', facing: null};
 	weapon = {name:"Knife", range: 1, damage: 1};
 	var temp = randomInt(9);
 	switch	(temp)
@@ -851,7 +851,7 @@ function generateEnemy(x,y,i,indoors,cell)
 		pow = randomInt(4);
 	}
 
-	var enemy = {x:x,y:y,hp:randomInt(maxHp),v:true,def:1, hunt:0, pow:pow, pause:false,swim:false, cover:0,mapPos:i, char: char, facing: null}
+	var enemy = {x:x,y:y,hp:randomInt(maxHp),luck:randomInt(2),v:true,def:1, hunt:0, pow:pow, pause:false,swim:false, cover:0,mapPos:i, char: char, facing: null}
 	setCover(enemy,cell);
 	return enemy;
 }
@@ -871,7 +871,7 @@ function initMiniActors(){
 
 	y = randomInt(mapRows-2) +1;
 	x = randomInt(mapCols-2) +1;
-	bigEnemy = { x:x, y:y, hp:10, v:playerSonar, pow:5, def: 3, hunt:0, pause:false, swim:true, cover:0, mapPos:pos, char: 'E', facing: null};
+	bigEnemy = { x:x, y:y, hp:10, luck:0, v:playerSonar, pow:5, def: 3, hunt:0, pause:false, swim:true, cover:0, mapPos:pos, char: 'E', facing: null};
 }
 
 function getBigMapPos(yPos,xPos)
@@ -948,6 +948,11 @@ function resetText()
 	info.content = defaultInfo;
 }
 
+function getDamage(weapon, actor)
+{
+	var min = 0;
+	var max = 1;
+}
 
 function attack(actor, weapon){
 	info.content = "Attack Missed";
