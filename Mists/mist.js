@@ -957,13 +957,67 @@ function resetText()
 	info.content = defaultInfo;
 }
 
-function getDamage(weapon, actor)
+function getDamage(weapon)
 {
 	var min = 0;
 	var max = 1;
+	
+	switch(weapon.damage)
+	{
+		case 1:
+			min = 1;
+			max = 6;
+			break;
+			
+		case 2:
+			min = 2;
+			max = 8;
+			break;
+		
+		case 3:
+			min = 3;
+			max = 10;
+			break;
+		
+		case 4:
+			min = 4;
+			max = 12;
+			break;
+		
+		case 5:
+			min = 5;
+			max = 16;
+			break;
+		
+		case 6:
+			min = 8;
+			max = 20;
+			break;
+	}
+	return randomInt(max,min);
+}
+
+function getActorsInSameScreen(actor)
+{
+	var listInScreen [];
+	
+	if(actor.mapPos == mainPlayer.mapPos)
+		listInScreen.push(mainPlayer);
+	if(actor.mapPos == bigEnemy.mapPos);
+		listInScreen.push(bigEnemy);
+	for (var i = 0; i < enemyList.length; i++) {
+		if(enemyList[i].mapPos == actor.mapPos)
+		{
+			listInScreen.push(enemyList[i]);
+		}
+	}
+	return listInScreen [];
 }
 
 function attack(actor, weapon){
+	var list = getActorsInSameScreen(actor)
+	var damage = getDamage(weapon);
+	//ToDo : check for crit then double damage
 	info.content = "Attack Missed";
 	setTimeout(resetText,1000);
 	return 0;
