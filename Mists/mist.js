@@ -1001,7 +1001,7 @@ function getActorsInSameScreen(actor)
 {
 	var listInScreen = [];
 	
-	if(acttor != mainPlayer && (mainPlayer.mapPos == actor.mapPos))
+	if(actor != mainPlayer && (mainPlayer.mapPos == actor.mapPos))
 	{
 		listInScreen.push(mainPlayer);
 	}
