@@ -999,7 +999,7 @@ function getDamage(weapon)
 
 function getActorsInSameScreen(actor)
 {
-	var listInScreen [];
+	var listInScreen = [];
 	
 	if(actor.mapPos == mainPlayer.mapPos)
 		listInScreen.push(mainPlayer);
@@ -1011,7 +1011,7 @@ function getActorsInSameScreen(actor)
 			listInScreen.push(enemyList[i]);
 		}
 	}
-	return listInScreen [];
+	return listInScreen;
 }
 
 function attack(actor, weapon){
