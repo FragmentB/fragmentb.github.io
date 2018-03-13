@@ -1001,16 +1001,16 @@ function getActorsInSameScreen(actor)
 {
 	var listInScreen = [];
 	
-	if((mainPlayer.mapPos === actor.mapPos) && actor != mainPlayer)
+	if(acttor != mainPlayer && (mainPlayer.mapPos == actor.mapPos))
 	{
 		listInScreen.push(mainPlayer);
 	}
-	if((bigEnemy.mapPos === actor.mapPos) && actor != bigEnemy);
+	if(actor != bigEnemy && (bigEnemy.mapPos.value == actor.mapPos.value));
 	{
 		listInScreen.push(bigEnemy);
 	}
 	for (var i = 0; i < enemyList.length; i++) {
-		if(enemyList[i].mapPos === actor.mapPos)
+		if(enemyList[i].mapPos == actor.mapPos)
 		{
 			listInScreen.push(enemyList[i]);
 		}
