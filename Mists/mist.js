@@ -1001,9 +1001,9 @@ function getActorsInSameScreen(actor)
 {
 	var listInScreen = [];
 	
-	if(actor.mapPos == mainPlayer.mapPos)
+	if(mainPlayer.mapPos == actor.mapPos && actor != mainPlayer)
 		listInScreen.push(mainPlayer);
-	if(actor.mapPos == bigEnemy.mapPos);
+	if(bigEnemy.mapPos == actor.mapPos && actor != bigEnemy);
 		listInScreen.push(bigEnemy);
 	for (var i = 0; i < enemyList.length; i++) {
 		if(enemyList[i].mapPos == actor.mapPos)
