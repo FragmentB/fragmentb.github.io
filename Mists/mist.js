@@ -1005,7 +1005,7 @@ function getActorsInSameScreen(actor)
 	{
 		listInScreen.push(mainPlayer);
 	}
-	if(actor != bigEnemy && (bigEnemy.mapPos === actor.mapPos));
+	if(bigEnemy.mapPos === actor.mapPos);
 	{
 		listInScreen.push(bigEnemy);
 	}
