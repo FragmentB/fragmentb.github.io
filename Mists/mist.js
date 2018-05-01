@@ -121,7 +121,7 @@ function dispStats(){
 	cover.content=cell+" = "+mainPlayer.cover;
 	health.content = mainPlayer.hp +"/"+ maxHP+"HP";
 	defense.content = mainPlayer.def +" Armor";
-	dispWeapon.content = weapon.name;
+	dispWeapon.content = mainPlayer.weapon.name;
 }
 function dispCurrentHealth(){
 	health.content = mainPlayer.hp + " HP";
@@ -233,7 +233,7 @@ function onKeyUp(event){
 				moves++;
 			break;
 		case Phaser.Keyboard.SPACEBAR:
-			attack(mainPlayer, weapon);
+			attack(mainPlayer, mainPlayer.weapon);
 			moves++;
 			break;
 		case Phaser.Keyboard.ESCAPE:
@@ -720,7 +720,7 @@ function initPlayer(){
 	var left = false;
 	var right = false;
 
-	mainPlayer = { x:0, y:0, hp:maxHP, luck:1, v:true, hunt:0, pause:false, swim:false, cover:0, pow:0, def:armor, char:'O', facing: null};
+	mainPlayer = { x:0, y:0, hp:maxHP, luck:1, v:true, hunt:0, pause:false, swim:false, cover:0, pow:0, def:armor, char:'O', facing: null, weapon:{name:"Knife", range: 1, damage: 1}};
 	weapon = {name:"Knife", range: 1, damage: 1};
 	var temp = randomInt(9);
 	switch	(temp)
