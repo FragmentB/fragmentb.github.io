@@ -1005,6 +1005,7 @@ function getActorsInSameScreen(actor)
 	{
 		listInScreen.push(mainPlayer);
 	}
+	
 	if(actor != bigEnemy && (bigEnemy.mapPos === actor.mapPos))
 	{
 		listInScreen.push(bigEnemy);
@@ -1018,12 +1019,74 @@ function getActorsInSameScreen(actor)
 	}
 	return listInScreen;
 }
+function getActorInRange(actor, listTargets, weapon)
+{
+	var range = weapon.range;
+	var maxX = 0;
+	var maxY = 0;
+	var target = null;
+	
+	switch(actor.facing)
+	{
+		case 'left':
+			for(var z = actor.x - range; z< actor.x; z++){
+				for (var i = 0; i < listTargets.length; i++) {
+					if(listTargets[i].x == z && listTargets[i].y == actor.y){
+						target = listTargets[i];
+					}
+				}
+			}
+			break;
+			
+		case 'right':
+			for(var z = actor.x + range; z> actor.x; z--){
+				for (var i = 0; i < listTargets.length; i++) {
+					if(listTargets[i].x == z && listTargets[i].y == actor.y){
+						target = listTargets[i];
+					}
+				}
+			}
+			break;
+			
+		case 'up':
+			for(var z = actor.y - range; z< actor.y; z++){
+				for (var i = 0; i < listTargets.length; i++) {
+					if(listTargets[i].y == z && listTargets[i].x == actor.x){
+						target = listTargets[i];
+					}
+				}
+			}
+			break;
+			
+		case 'down':
+			for(var z = actor.y + range; z> actor.y; z--){
+				for (var i = 0; i < listTargets.length; i++) {
+					if(listTargets[i].y == z && listTargets[i].x == actor.x){
+						target = listTargets[i];
+					}
+				}
+			}
+			break;
+	}
+	
+	return target;	
+}
 
 function attack(actor, weapon){
-	var list = getActorsInSameScreen(actor)
-	var damage = getDamage(weapon);
+	var list = getActorsInSameScreen(actor);
+	var enemyHit = getActorInRange(actor, list, weapon);
+	if(enemyHit != null)
+	{
+	//ToDo : see if any enemy is in weapon range.
+		var damage = getDamage(weapon);
+		info.content = damage + " damage";
+		setTimeout(resetText,1000);
 	//ToDo : check for crit then double damage
-	info.content = "Attack Missed";
-	setTimeout(resetText,1000);
+	}
+	else
+	{
+		info.content = "Attack Missed";
+		setTimeout(resetText,1000);
+	}
 	return 0;
 }
