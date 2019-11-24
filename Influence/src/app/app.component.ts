@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
 }
 
 function preload() {
-  this.load.image('welcome', '../assets/welcome.jpg');
+  this.load.image('welcome', './assets/welcome.jpg');
   }
 
   function create() {
