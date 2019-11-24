@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import 'phaser';
 
-var config = {
+let config = {
   type: Phaser.AUTO,
   width: 960,
   height: 1280,
