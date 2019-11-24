@@ -1,3 +1,6 @@
+// tslint:disable-next-line: max-line-length
+// Helpful command for angular building ng build --prod --output-path ../InfluenceDist  --base-href "https://fragmentb.github.io/InfluenceDist/"
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import 'phaser';
 
