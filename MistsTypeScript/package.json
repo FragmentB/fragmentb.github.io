@@ -1,0 +1,20 @@
+{
+  "name": "miststypescript",
+  "version": "0.1.0",
+  "description": "Explorers of the Mists TypeScript Edition",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack --watch & live-server --port=8085"
+  },
+  "author": "TheFish",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "phaser": "^3.24.1",
+    "ts-loader": "^8.0.11",
+    "typescript": "^4.0.5",
+    "webpack": "^5.5.1",
+    "webpack-cli": "^4.2.0"
+  }
+}
