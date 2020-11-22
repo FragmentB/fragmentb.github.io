@@ -4,7 +4,7 @@ import { mapData } from "./map"
 import GameConfig = Phaser.Types.Core.GameConfig;
 
 var fontSize = 32;
-var map = new mapData();
+
 
 let config: GameConfig = {
   title: "Mists",
@@ -25,6 +25,7 @@ export class MistsGame extends Phaser.Game {
   }
 }
 window.onload = () => {
+  var map = new mapData();
   config.width = map.screenWidth();
   config.height = map.screenHeight();
   var game = new MistsGame(config);
