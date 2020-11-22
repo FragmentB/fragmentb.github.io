@@ -8,8 +8,6 @@ var map = new mapData();
 
 let config: GameConfig = {
   title: "Mists",
-  width:  map.screenWidth(),
-  height: map.screenHeight(),
   parent: "game",
   backgroundColor: "#18216D",
   scene: [GameScene],
@@ -27,7 +25,8 @@ export class MistsGame extends Phaser.Game {
   }
 }
 window.onload = () => {
-  
+  config.width = map.screenWidth();
+  config.height = map.screenHeight();
   var game = new MistsGame(config);
 };
 
