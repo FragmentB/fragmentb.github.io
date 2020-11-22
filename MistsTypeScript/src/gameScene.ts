@@ -1,8 +1,10 @@
 import "phaser";
 import { mapData } from "./map"
+import { Screen } from "./screen"
 export class GameScene extends Phaser.Scene{
 
     map: mapData;
+    screen: Screen;
 
     constructor(){
         super({
@@ -12,6 +14,7 @@ export class GameScene extends Phaser.Scene{
 
     init(params): void{
         this.map = new mapData();
+        this.screen = new Screen();
     }
     
     preload():void{
