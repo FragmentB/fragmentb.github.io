@@ -18,13 +18,15 @@ let config:  {
     }
   }
 };
+
+config.width = map.screenWidth();
+config.height = map.screenHeight();
 export class MistsGame extends Phaser.Game {
   constructor(config: any) {
     super(config);
   }
 }
 window.onload = () => {
-  config.width = map.screenWidth();
-  config.height = map.screenHeight();
+  
   var game = new MistsGame(config);
 };
