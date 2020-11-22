@@ -12,19 +12,17 @@ export class mapData{
     bigMap= new Array<Array<lrgMapObj>>();
 
     screenWidth():number    { 
-        return 
-        (this.miniCols * this.tileSize *0.6) +(this.mapCols * this.tileSize);
+        return (this.miniCols * this.tileSize *0.6) + (this.mapCols * this.tileSize);
     }
     screenHeight():number{
-        return
-        (this.miniRows * this.tileSize) + (this.mapRows * this.tileSize);
+        return (this.miniRows * this.tileSize) + (this.mapRows * this.tileSize);
     }
     
     initMap(){
         for (var y = 0; y < this.miniRows; y++){
-            var newRow: lrgMapObj[]= new Array<lrgMapObj>();
+            var newRow = new Array<lrgMapObj>();
             for (var x = 0; x < this.miniCols; x++){
-                var mapObj:lrgMapObj;
+                var mapObj = new lrgMapObj();   
                 if(Math.random() > 0.8)
                 {                    
                     mapObj= 
@@ -34,14 +32,30 @@ export class mapData{
                         visited:false,
                         image:""
                     }; 
+
+                    
                       
                 }
                 else
-                {                    
+                {       
+                    var map = generateOutside(this.mapRows,this.mapCols); 
+                    if(Math.random()>0.7)
+                    {
+                        map = generatePuddle(map,this.mapRows,this.mapCols);
+                        if(Math.random()>0.8)
+                        {
+                            map = generatePuddle(map,this.mapRows,this.mapCols);
+                            if(Math.random()>0.7)
+                            {
+                                map = generatePuddle(map,this.mapRows,this.mapCols);
+                            }
+                        }
+                    }
+
                     mapObj= 
                     {
                         symbol:".",
-                        innerMap:generateOutside(this.mapRows,this.mapCols),
+                        innerMap:map,
                         visited:false,
                         image:""
                     }; 
@@ -53,7 +67,7 @@ export class mapData{
     }
 }
 
-function generateBuilding(rows,cols, maxDoors): tile[][]
+function generateBuilding(rows,cols, maxDoors): Array<Array<tile>>
 {
 	var area = new Array<Array<tile>>();
 	var doors = 0;
@@ -122,7 +136,7 @@ function generateBuilding(rows,cols, maxDoors): tile[][]
                     newTile.passable = true;
                 }
             }
-            newRow.push();
+            newRow.push(newTile);
 		}
 		area.push(newRow);
 	}
@@ -133,34 +147,34 @@ function generateBuilding(rows,cols, maxDoors): tile[][]
 			{
 				switch(x){
 					case 1:
-						convertTileToFloor(area[y][x+1]);
+						area[y][x+1] = convertTileToFloor(area[y][x+1]);
 						break;
 
 					case area[y].length-2:
-						convertTileToFloor(area[y][x-1]);
+						area[y][x-1] = convertTileToFloor(area[y][x-1]);
 						break;
 				}
 
 				switch(y){
 					case 1:
-						convertTileToFloor(area[y+1][x]);
+						area[y+1][x]=convertTileToFloor(area[y+1][x]);
 						break;
 
 					case area.length-2:
-                        convertTileToFloor(area[y-1][x]);
+                        area[y-1][x]=convertTileToFloor(area[y-1][x]);
 						break;
 				}
 			}
 		}
 	}
 	if(Math.random()>0.85)
-		generatePuddle(area,rows,cols);
-	return area
+        generatePuddle(area,rows,cols);
+	return area;
 }
 
-function generateOutside(rows,cols): tile[][]
+function generateOutside(rows,cols): Array<Array<tile>>
 {
-	var area = new Array<Array<tile>>();
+    var area = new Array<Array<tile>>();
 	for (var y = 0; y < rows; y++){
 		var newRow = new Array<tile>();
 		for (var x = 0; x < cols; x++){
@@ -200,51 +214,49 @@ function generateOutside(rows,cols): tile[][]
 		}
 		area.push(newRow)
 	}	
-	if(Math.random()>0.7)
-	{
-	    generatePuddle(area,rows,cols);
-		if(Math.random()>0.8)
-		{
-			generatePuddle(area,rows,cols);
-			if(Math.random()>0.7)
-			{
-				generatePuddle(area,rows,cols);
-			}
-		}
-	}
+	
 	return area;
 }
 
-function generatePuddle(area:tile[][], rows, cols){
-    var toolkit = new tools()
-	var x = toolkit.randomInt(rows-2, null);
-	var y = toolkit.randomInt(cols-2, null);
+function generatePuddle(area:Array<Array<tile>>, rows, cols):Array<Array<tile>>{
 
-    convertTileToWater(area[y][x]);
-    convertTileToWater(area[y+1][x]);
-    convertTileToWater(area[y][x+1]);
-    convertTileToWater(area[y+1][x+1]);
+    var toolkit = new tools()
+    var x = toolkit.randomInt(rows-2, 0);
+    var y = toolkit.randomInt(cols-2, 0);
+    
+    
+    area[y][x] = convertTileToWater(area[y][x]);
+    area[y+1][x] = convertTileToWater(area[y+1][x]);
+    area[y][x+1] = convertTileToWater(area[y][x+1]);
+    area[y+1][x+1] = convertTileToWater(area[y+1][x+1]);
+    return area;
 }
 
-function convertTileToWater(tile:tile)
+
+
+
+function convertTileToWater(tile:tile):tile
 {
     tile.cover = 4;
     tile.image = "";
     tile.swimmable = true;
     tile.symbol = 'w';
+    return tile;
 }
 
-function convertTileToFloor(tile:tile)
+function convertTileToFloor(tile:tile):tile
 {
     tile.cover = 0;
     tile.image = "";
     tile.passable = true;
     tile.symbol = '-';
+
+    return tile;
 }
 
 class lrgMapObj {
     symbol:string;
-    innerMap:tile[][];
+    innerMap:Array<Array<tile>>;
     visited:boolean;
     image:string;
 }
