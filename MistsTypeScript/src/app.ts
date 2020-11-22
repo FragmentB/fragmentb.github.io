@@ -1,13 +1,15 @@
 import "phaser";
 import { GameScene } from "./gameScene"
 import { mapData } from "./map"
+import GameConfig = Phaser.Types.Core.GameConfig;
+
 var fontSize = 32;
 var map = new mapData();
 
-let config: Phaser.Types.Core.GameConfig = {
+let config: GameConfig = {
   title: "Mists",
-  width: 600,
-  height: 800,
+  width:  map.screenWidth(),
+  height: map.screenHeight(),
   parent: "game",
   backgroundColor: "#18216D",
   scene: [GameScene],
@@ -20,9 +22,7 @@ let config: Phaser.Types.Core.GameConfig = {
 };
 
 export class MistsGame extends Phaser.Game {
-  constructor(config: Phaser.Types.Core.GameConfig) {
-    config.width = map.screenWidth();
-    config.height = map.screenHeight();
+  constructor(config: GameConfig) {
     super(config);
   }
 }
