@@ -9,7 +9,7 @@ export class mapData{
     readonly tileSize = 32;
     toolkit = new tools();
     
-    bigMap:lrgMapObj[][];  
+    bigMap= new Array<Array<lrgMapObj>>();
 
     screenWidth():number    { 
         return 
