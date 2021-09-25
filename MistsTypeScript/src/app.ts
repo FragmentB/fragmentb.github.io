@@ -25,7 +25,7 @@ export class MistsGame extends Phaser.Game {
   }
 }
 window.onload = () => {
-  console.log("Hello World");
+  alert("Hello World");
   var map = new mapData();
   config.width = map.screenWidth();
   config.height = map.screenHeight();
