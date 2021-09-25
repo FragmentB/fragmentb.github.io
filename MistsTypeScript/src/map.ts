@@ -40,6 +40,7 @@ export class mapData{
                     mapObj.image = "";     
                 }
             }
+            console.log(mapObj);
             this.worldMap.push(mapObj);
         }
     }
