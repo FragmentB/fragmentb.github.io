@@ -7,10 +7,7 @@ export class mapData{
     toolkit = new tools();
     mapToolKit = new mapTools();
     worldMap= new Array<lrgMapObj>();
-   
-
-
-    
+      
     initMap(){
         for (var y = 0; y < settings.miniRows; y++){
             for (var x = 0; x < settings.miniCols; x++){

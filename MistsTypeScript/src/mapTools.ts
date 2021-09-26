@@ -211,7 +211,6 @@ export class mapTools{
         var min = tile.tileRow * settings.tilesetCols;
         var max = min + settings.tilesetCols-1 ;
         var tileNumber = Math.floor(Math.random() * (max - min + 1) + min);
-        console.log("$Min:" + min +" Max: " +max+ " TileNumber: " + tileNumber);
 
         return tileNumber
     }

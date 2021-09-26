@@ -11,10 +11,10 @@ class gameSettings
 
 export const settings : gameSettings =
 {
-    mapCols:10,
-    mapRows:10,
+    mapCols:15,
+    mapRows:15,
     tileSize:32,
-    miniCols:5,
-    miniRows:5,
+    miniCols:8,
+    miniRows:8,
     tilesetCols:3
 }
