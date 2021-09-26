@@ -66,7 +66,7 @@ export class GameScene extends Phaser.Scene{
         var weaponDisplay = this.add.image(bigMapBottom.x - settings.padding, miniMapHeight + (settings.padding * 2),'displayPlate')
         weaponDisplay.setOrigin(1,0);
         var weaponHeader =this.add.text(weaponDisplay.x - (weaponDisplay.width + (settings.padding * 2)), weaponDisplay.y + (weaponDisplay.height / 2), "Weapon:",style);
-        weaponHeader.setOrigin(0.0);
+        weaponHeader.setOrigin(1.0);
         var weaponIcon = this.add.image(weaponDisplay.x - (weaponDisplay.width - settings.padding), weaponDisplay.y + settings.padding,'stick');
         weaponIcon.setOrigin(0,0);
         var weaponName = this.add.text(weaponIcon.x + weaponIcon.width + (settings.padding * 2), weaponIcon.y,stick.name, darkStyle)
@@ -80,7 +80,7 @@ export class GameScene extends Phaser.Scene{
         var healthDisplay = this.add.image(weaponDisplay.x,weaponDisplay.y + weaponDisplay.height + settings.padding,'displayPlate')
         healthDisplay.setOrigin(1,0);
         for (var h = 0; h < 5; h++){
-            this.add.image(healthDisplay.x - (((healthDisplay.width)-16)-32*h), healthDisplay.y + (healthDisplay.height / 2) + settings.padding,'heart');
+            this.add.image(healthDisplay.x - (((healthDisplay.width)-16)-32*h), healthDisplay.y + ((healthDisplay.height / 2)),'heart');
         };
 
         
@@ -90,7 +90,7 @@ export class GameScene extends Phaser.Scene{
         
         var armorIcon = this.add.image(defenseDisplay.x - (defenseDisplay.width - settings.padding), defenseDisplay.y + settings.padding,'cloth');
         armorIcon.setOrigin(0,0);
-        var armorName = this.add.text(armorIcon.x + armorIcon.width + (settings.padding * 2), weaponIcon.y,cloth.name, darkStyle)
+        var armorName = this.add.text(armorIcon.x + armorIcon.width + (settings.padding * 2), armorIcon.y,cloth.name, darkStyle)
         armorName.setOrigin(0.0);
         var armorDefense = this.add.text(armorName.x ,armorName.y + armorName.height ,"Defense:" + cloth.defense.toString(), darkStyle)
         armorDefense.setOrigin(0.0);
