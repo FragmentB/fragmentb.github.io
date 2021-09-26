@@ -58,21 +58,21 @@ export class GameScene extends Phaser.Scene{
 
         //adding text displays for health, defense and cover
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(1),"Weapon:",style);
-        var weaponDisplay = this.add.image(miniMapWidth, this.getNextTextHeightPosition(1),'displayPlate')
+        var weaponDisplay = this.add.image(miniMapWidth, this.getNextDisplayPlateHeightPosition(1),'displayPlate')
         weaponDisplay.setOrigin(1,0);
         var weaponIcon = this.add.image(weaponDisplay.x - 155, weaponDisplay.y + settings.padding,'stick');
         weaponIcon.setOrigin(0,0);
 
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(3),"Health:",style);
-        var healthDisplay = this.add.image(miniMapWidth,this.getNextTextHeightPosition(3)+settings.padding,'displayPlate')
+        var healthDisplay = this.add.image(miniMapWidth,this.getNextDisplayPlateHeightPosition(2)+settings.padding,'displayPlate')
         healthDisplay.setOrigin(1,0);
         
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(5),"Defense:",style);
-        var defenseDisplay = this.add.image(miniMapWidth,this.getNextTextHeightPosition(5)+settings.padding,'displayPlate')
+        var defenseDisplay = this.add.image(miniMapWidth,this.getNextDisplayPlateHeightPosition(4)+settings.padding,'displayPlate')
         defenseDisplay.setOrigin(1,0);
 
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(7),"Cover:",style);
-        var coverDisplay = this.add.image(miniMapWidth,this.getNextTextHeightPosition(7)+settings.padding,'displayPlate')
+        var coverDisplay = this.add.image(miniMapWidth,this.getNextDisplayPlateHeightPosition(5)+settings.padding,'displayPlate')
         coverDisplay.setOrigin(1,0);
 
         var info = this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(9),defaultInfo,style);
@@ -92,6 +92,14 @@ export class GameScene extends Phaser.Scene{
         var miniMapHeight = settings.miniRows * settings.tileSize
         var padding = settings.padding * factor;
         var currentHeight = settings.fontSize * factor;
+        var height = miniMapHeight + padding + currentHeight;
+
+        return height;
+    }
+    getNextDisplayPlateHeightPosition(factor:number):number{
+        var miniMapHeight = settings.miniRows * settings.tileSize
+        var padding = settings.padding * factor;
+        var currentHeight = 45 * factor-1;
         var height = miniMapHeight + padding + currentHeight;
 
         return height;
