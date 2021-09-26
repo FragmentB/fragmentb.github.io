@@ -253,12 +253,12 @@ export class mapData{
         return Math.floor(Math.random() * (max - min + 1) + min)
     }
 
-    getMiniMapTileArray():number[][]
+    getMiniMapTileArray():Array<Array<number>>
     {
-        var miniMapArray = [];
+        var miniMapArray = new Array<Array<number>>();;
         for (var y = 0; y < this.miniRows; y++){
             
-            var tempArray = [];
+            var tempArray = new Array<number>();
             for (var x = 0; x < this.miniCols; x++){
                 this.worldMap.filter(a=>
                     {                        
@@ -272,6 +272,30 @@ export class mapData{
             miniMapArray.push(tempArray);
         }
 
-        return miniMapArray
+        return miniMapArray;
+    }
+
+    getMainMapTileArray(mapNumber:number): Array<Array<number>>
+    {
+        var map = this.worldMap[mapNumber].innerMap;
+        var mapArray = new Array<Array<number>>();;
+        for (var y = 0; y < this.mapRows; y++){
+            
+            var tempArray = new Array<number>();
+            for (var x = 0; x < this.mapCols; x++){
+                map.filter(a=>
+                    {                        
+                        if(a.y ==y && a.x == x)
+                        {
+                            tempArray.push(a.tile.tileNumber);
+                        }
+                    }
+                );
+            };
+            mapArray.push(tempArray);
+        }
+
+        return mapArray;
+
     }
 }

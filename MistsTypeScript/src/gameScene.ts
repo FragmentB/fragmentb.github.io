@@ -27,16 +27,24 @@ export class GameScene extends Phaser.Scene{
     create():void{
         this.map.initMap();
 
-        const tileMap = this.make.tilemap({data:this.map.getMiniMapTileArray(), tileHeight:16, tileWidth:16});
-        tileMap.addTilesetImage('tiles');
+        const miniMap = this.make.tilemap({data:this.map.getMiniMapTileArray(), tileHeight:16, tileWidth:16});
+        miniMap.addTilesetImage('tiles');
+
+        const bigMap = this.make.tilemap({data:this.map.getMainMapTileArray(0), tileHeight:16, tileWidth:16});
+        bigMap.addTilesetImage('tiles');
          
         var fontSize = 32;
         var size = fontSize*.7;
         var style = {font: size+"px monospace", fill:"#fff"};
         var defaultInfo = "Welcome to the Mists";
         var screenHeight = Number(this.game.config.height);
-        const bottomLayer = tileMap.createLayer(0,'tiles',0,0);
-        bottomLayer.setScale(2,2);
+        
+        const miniMapBottom = miniMap.createLayer(0,'tiles',0,0);
+        miniMapBottom.setScale(2,2);
+
+        const bigMapBottom = bigMap.createLayer(0,'tiles', 0, 180);
+        bigMapBottom.setScale(2,2);
+
         //adding text displays for health, defense and cover
         this.add.text((0+size),(screenHeight-(12*size)),"Weapon:",style);
         var dispWeapon =this.add.text((0+size),(screenHeight-(size*11)),"",style);
