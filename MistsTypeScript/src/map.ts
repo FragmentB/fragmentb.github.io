@@ -1,6 +1,7 @@
 import {tools} from "./tools";
-import {lrgMapObj, mapStuct} from "./mapClasses";
+import {lrgMapObj} from "./mapClasses";
 import { mapTools} from "./mapTools";
+import { settings } from "./gameSettings";
 
 export class mapData{
     toolkit = new tools();
@@ -11,8 +12,8 @@ export class mapData{
 
     
     initMap(){
-        for (var y = 0; y < mapStuct.miniRows; y++){
-            for (var x = 0; x < mapStuct.miniCols; x++){
+        for (var y = 0; y < settings.miniRows; y++){
+            for (var x = 0; x < settings.miniCols; x++){
                 var mapObj = new lrgMapObj(); 
                 mapObj.x = x;
                 mapObj.y = y;   
@@ -39,10 +40,10 @@ export class mapData{
     getMiniMapTileArray():Array<Array<number>>
     {
         var miniMapArray = new Array<Array<number>>();;
-        for (var y = 0; y < mapStuct.miniRows; y++){
+        for (var y = 0; y < settings.miniRows; y++){
             
             var tempArray = new Array<number>();
-            for (var x = 0; x < mapStuct.miniCols; x++){
+            for (var x = 0; x < settings.miniCols; x++){
                 this.worldMap.filter(a=>
                     {                        
                         if(a.y ==y && a.x == x)
@@ -62,10 +63,10 @@ export class mapData{
     {
         var map = this.worldMap[mapNumber].innerMap;
         var mapArray = new Array<Array<number>>();;
-        for (var y = 0; y < mapStuct.mapRows; y++){
+        for (var y = 0; y < settings.mapRows; y++){
             
             var tempArray = new Array<number>();
-            for (var x = 0; x < mapStuct.mapCols; x++){
+            for (var x = 0; x < settings.mapCols; x++){
                 map.filter(a=>
                     {                        
                         if(a.y ==y && a.x == x)

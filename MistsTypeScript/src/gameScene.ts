@@ -1,6 +1,6 @@
 import "phaser";
 import { mapData } from "./map"
-import { mapStuct } from "./mapClasses";
+import { settings } from "./gameSettings";
 export class GameScene extends Phaser.Scene{
 
     map: mapData;
@@ -50,7 +50,7 @@ export class GameScene extends Phaser.Scene{
         var defense = this.add.text((0+size),(screenHeight-(size*5))," ",style);
         this.add.text((0+size),(screenHeight-(3*size)),"Cover:",style);
         var cover = this.add.text((0+size),(screenHeight-(size*2))," ",style);
-        var info = this.add.text(((mapStuct.miniCols+2 * fontSize * 1.8)+size),(screenHeight-(size*2)),defaultInfo,style);
+        var info = this.add.text(((settings.miniCols+2 * fontSize * 1.8)+size),(screenHeight-(size*2)),defaultInfo,style);
         
     }
 

@@ -1,6 +1,6 @@
 import "phaser";
 import { GameScene } from "./gameScene"
-import { mapStuct } from "./mapClasses"
+import { settings } from "./gameSettings";
 import GameConfig = Phaser.Types.Core.GameConfig;
 
 var fontSize = 32;
@@ -25,7 +25,7 @@ export class MistsGame extends Phaser.Game {
   }
 }
 window.onload = () => {
-  config.width = (mapStuct.miniCols * mapStuct.tileSize) + 10 + (mapStuct.mapCols * mapStuct.tileSize);
-  config.height = (mapStuct.miniRows * mapStuct.tileSize) + (mapStuct.mapRows * mapStuct.tileSize);
+  config.width = (settings.miniCols * settings.tileSize) + 10 + (settings.mapCols * settings.tileSize);
+  config.height = (settings.miniRows * settings.tileSize) + (settings.mapRows * settings.tileSize);
   var game = new MistsGame(config);
 };

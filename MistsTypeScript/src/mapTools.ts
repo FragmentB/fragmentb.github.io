@@ -1,6 +1,6 @@
-import { mapStuct, grass, rubble, box, bush, door, floor, mapTile, nest, tree, wall, water, tile, waterRubble} from "./mapClasses"
+import { grass, rubble, box, bush, door, floor, mapTile, nest, tree, wall, water, tile, waterRubble} from "./mapClasses"
 import {tools} from "./tools";
-
+import { settings } from "./gameSettings";
 export class mapTools{
     toolkit = new tools()
 
@@ -8,18 +8,18 @@ export class mapTools{
     {
         var area = new Array<mapTile>();
         var doors = 0;
-        for (var y = 0; y < mapStuct.mapCols; y++){
-            for (var x = 0; x < mapStuct.mapRows; x++){
+        for (var y = 0; y < settings.mapCols; y++){
+            for (var x = 0; x < settings.mapRows; x++){
                 var newTile = new mapTile();
                 newTile.x = x;
                 newTile.y = y;
                 newTile.tile = wall;
                 
-                if(x == 0 || x == mapStuct.mapCols - 1 || y == 0 || y == mapStuct.mapRows -1)
+                if(x == 0 || x == settings.mapCols - 1 || y == 0 || y == settings.mapRows -1)
                 {
                     newTile.tile = grass;
                 }
-                else if (x == 1|| x == mapStuct.mapCols - 2 || y == 1 || y == mapStuct.mapRows -2)
+                else if (x == 1|| x == settings.mapCols - 2 || y == 1 || y == settings.mapRows -2)
                 {
                     //if the edge of a building
                     if (Math.random() > 0.6)
@@ -49,8 +49,8 @@ export class mapTools{
             }
         }
         
-        for (var y=0; y< mapStuct.mapRows ;y++) {
-            for(var x=0; x< mapStuct.mapCols; x++)
+        for (var y=0; y< settings.mapRows ;y++) {
+            for(var x=0; x< settings.mapCols; x++)
             {
                 area.forEach(a => {
                     if(a.x == x && a.y == y && a.tile==door)
@@ -60,7 +60,7 @@ export class mapTools{
                                 this.convertTile(area, y, x+1,floor);
                                 break;
     
-                            case mapStuct.mapCols-2:
+                            case settings.mapCols-2:
                                 this.convertTile(area, y, x-1, floor);
                                 break;
                         }
@@ -70,7 +70,7 @@ export class mapTools{
                                 this.convertTile(area, y+1, x, floor);
                                 break;
     
-                            case mapStuct.mapRows-2:
+                            case settings.mapRows-2:
                                 this.convertTile(area, y-1, y, floor);
                                 break;
                         }
@@ -88,8 +88,8 @@ export class mapTools{
     generateOutside(): Array<mapTile>
     {
         var area = new Array<mapTile>();
-        for (var y = 0; y < mapStuct.mapRows; y++){
-            for (var x = 0; x < mapStuct.mapCols; x++){
+        for (var y = 0; y < settings.mapRows; y++){
+            for (var x = 0; x < settings.mapCols; x++){
                 var newTile = new mapTile()
                 newTile.x = x;
                 newTile.y = y;
@@ -123,8 +123,8 @@ export class mapTools{
 
     generatePuddle(area:Array<mapTile>, tile:tile){
         
-        var startX = this.toolkit.randomInt(mapStuct.mapRows-1, 0);
-        var startY = this.toolkit.randomInt(mapStuct.mapCols-1, 0);     
+        var startX = this.toolkit.randomInt(settings.mapRows-1, 0);
+        var startY = this.toolkit.randomInt(settings.mapCols-1, 0);     
         var puddleRows = this.toolkit.randomInt(4,1);
         var puddleCols = this.toolkit.randomInt(4,1);
         var puddle = new Array<mapTile>();
@@ -132,7 +132,7 @@ export class mapTools{
         {
             for(var a=0;a<puddleCols;a++)
             {
-                if(startX+a < mapStuct.mapCols && startY+i < mapStuct.mapRows)
+                if(startX+a < settings.mapCols && startY+i < settings.mapRows)
                 {
                     var puddleTile = new mapTile();
                     puddleTile.tile = tile;
@@ -177,7 +177,7 @@ export class mapTools{
                 break;
             case 3 :
                 area.filter( a=> {
-                    if(a.x == mapStuct.mapCols - 1 && a.tile != grass)
+                    if(a.x == settings.mapCols - 1 && a.tile != grass)
                     {
                         a.tile = rubble;
                         a.tile.tileNumber = this.generateTileNum(a.tile);
@@ -186,7 +186,7 @@ export class mapTools{
                 break;
             case 4 :
                 area.filter( a=> {
-                    if(a.y == mapStuct.mapRows -1 && a.tile != grass)
+                    if(a.y == settings.mapRows -1 && a.tile != grass)
                     {
                         a.tile = rubble;
                         a.tile.tileNumber = this.generateTileNum(a.tile);
@@ -208,8 +208,11 @@ export class mapTools{
 
     generateTileNum(tile:tile): number
     {
-        var min = tile.tileRow * 3;
-        var max = min + 2 ;
-        return Math.floor(Math.random() * (max - min + 1) + min)
+        var min = tile.tileRow * settings.tilesetCols;
+        var max = min + settings.tilesetCols-1 ;
+        var tileNumber = Math.floor(Math.random() * (max - min + 1) + min);
+        console.log("$Min:" + min +" Max: " +max+ " TileNumber: " + tileNumber);
+
+        return tileNumber
     }
 }
