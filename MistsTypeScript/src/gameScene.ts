@@ -1,7 +1,8 @@
 import "phaser";
 import { mapData } from "./map"
 import { settings } from "./gameSettings";
-import { stick } from "./playerWeapons";
+import { stick } from "./weapons";
+import { cloth } from "./armors";
 export class GameScene extends Phaser.Scene{
 
     map: mapData;
@@ -21,7 +22,9 @@ export class GameScene extends Phaser.Scene{
         this.load.image("tiles","src/Images/simpleTiles.png");
         this.load.image("playa","src/Images/tempPlayer.png");
         this.load.image("displayPlate","src/Images/tempPlate.png");
+        this.load.image("heart","src/Images/heart.png");
         this.load.image("stick", stick.image);
+        this.load.image("cloth", cloth.image);
     }
 
     create():void{
@@ -59,14 +62,16 @@ export class GameScene extends Phaser.Scene{
         mainPlaya.setOrigin(0,0); 
 
         //adding text displays for health, defense and cover
-        this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(1),"Weapon:",style);
+        
         var weaponDisplay = this.add.image(bigMapBottom.x - settings.padding, miniMapHeight + (settings.padding * 2),'displayPlate')
         weaponDisplay.setOrigin(1,0);
-        var weaponIcon = this.add.image(weaponDisplay.x - 155, weaponDisplay.y + settings.padding,'stick');
+        this.add.text(weaponDisplay.x - (weaponDisplay.width + (settings.padding * 2)), weaponDisplay.y + (weaponDisplay.height / 2), "Weapon:",style);
+
+        var weaponIcon = this.add.image(weaponDisplay.x - (weaponDisplay.width - settings.padding), weaponDisplay.y + settings.padding,'stick');
         weaponIcon.setOrigin(0,0);
         var weaponName = this.add.text(weaponIcon.x + weaponIcon.width + (settings.padding * 2), weaponIcon.y,stick.name, darkStyle)
         weaponName.setOrigin(0.0);
-        var weaponRange = this.add.text(weaponName.x ,weaponName.y + weaponName.height + 2 ,"Rng:" + stick.range.toString(), darkStyle)
+        var weaponRange = this.add.text(weaponName.x ,weaponName.y + weaponName.height ,"Rng:" + stick.range.toString(), darkStyle)
         weaponRange.setOrigin(0.0);
         var weaponDamage = this.add.text(weaponRange.x + weaponRange.width + (settings.padding * 2), weaponRange.y ,"Dmg:" + stick.damage.toString(),darkStyle)
         weaponDamage.setOrigin(0.0);
@@ -74,10 +79,21 @@ export class GameScene extends Phaser.Scene{
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(3),"Health:",style);
         var healthDisplay = this.add.image(weaponDisplay.x,weaponDisplay.y + weaponDisplay.height + settings.padding,'displayPlate')
         healthDisplay.setOrigin(1,0);
+        for (var h = 0; h < 5; h++){
+            this.add.image(healthDisplay.x - (((healthDisplay.width - settings.padding)-16)-32*h), healthDisplay.y + 16 + settings.padding,'heart');
+        };
+
         
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(5),"Defense:",style);
         var defenseDisplay = this.add.image(healthDisplay.x ,healthDisplay.y + healthDisplay.height + settings.padding,'displayPlate')
         defenseDisplay.setOrigin(1,0);
+        
+        var armorIcon = this.add.image(defenseDisplay.x - (defenseDisplay.width - settings.padding), weaponDisplay.y + settings.padding,'cloth');
+        armorIcon.setOrigin(0,0);
+        var armorName = this.add.text(armorIcon.x + armorIcon.width + (settings.padding * 2), weaponIcon.y,cloth.name, darkStyle)
+        armorName.setOrigin(0.0);
+        var armorDefense = this.add.text(armorName.x ,armorName.y + armorName.height ,"Defense:" + cloth.defense.toString(), darkStyle)
+        armorDefense.setOrigin(0.0);
 
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(7),"Cover:",style);
         var coverDisplay = this.add.image(defenseDisplay.x ,defenseDisplay.y + defenseDisplay.height + settings.padding,'displayPlate')
