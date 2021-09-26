@@ -260,19 +260,16 @@ export class mapData{
         for (var y = 0; y < this.miniRows; y++){
             
             var tempArray = [];
-
             for (var x = 0; x < this.miniCols; x++){
-                this.worldMap.filter( a=>
-                    {
-                        if(a.x == x && a.y ==y)
+                this.worldMap.filter(a=>
+                    {                        
+                        if(a.y ==y, a.x == x)
                         {
                             tempArray.push(a.tileNumber);
-                            console.log(x,y,a.tileNumber);
                         }
                     }
                 );
             };
-            console.log(tempArray);
 
             miniMapArray.push(tempArray);
         }
