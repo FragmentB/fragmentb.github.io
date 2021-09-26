@@ -9,7 +9,7 @@ var fontSize = 32;
 let config: GameConfig = {
   title: "Mists",
   parent: "game",
-  backgroundColor: "#e9e9e9",
+  backgroundColor: "#18216D",
   scene: [GameScene],
   physics: {
     default : "arcade", 

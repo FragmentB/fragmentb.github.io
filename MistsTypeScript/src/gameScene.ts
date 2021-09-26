@@ -37,8 +37,8 @@ export class GameScene extends Phaser.Scene{
         var scale = settings.tileSize/settings.tilesetSize;
 
         var style = {font: settings.fontSize+"px monospace", fill:"#fff"};
-        var darkStyle = style;
-        darkStyle.fill = "#000";
+        var darkStyle = {font: settings.fontSize+"px monospace", fill:"#000"};;
+        
         var defaultInfo = "Welcome to the Mists";
         var fontPaddingLeft = settings.padding * 2;
         var miniMapWidth = settings.miniCols * settings.tileSize
