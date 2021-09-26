@@ -143,7 +143,7 @@ export const rubble : tile = {
     cover:1,
     name:"Rubble"
 }
-export class mapStructure
+class mapStructure
 {
     //map structure
     miniRows: number;
@@ -151,4 +151,13 @@ export class mapStructure
     mapRows: number;
     mapCols: number;
     tileSize : number;
+}
+
+export const mapStuct : mapStructure =
+{
+    mapCols:10,
+    mapRows:10,
+    tileSize:32,
+    miniCols:5,
+    miniRows:5
 }

@@ -1,32 +1,18 @@
 import {tools} from "./tools";
-import {lrgMapObj, mapStructure} from "./mapClasses";
+import {lrgMapObj, mapStuct} from "./mapClasses";
 import { mapTools} from "./mapTools";
 
 export class mapData{
-    structure:mapStructure;
     toolkit = new tools();
     mapToolKit = new mapTools();
     worldMap= new Array<lrgMapObj>();
+   
 
-    constructor()
-    {
-        this.structure.mapCols=10;
-        this.structure.mapRows=10;
-        this.structure.tileSize=32;
-        this.structure.miniCols=5;
-        this.structure.miniRows=5;
-    }
 
-    screenWidth():number    { 
-        return (this.structure.miniCols * this.structure.tileSize) + 10 + (this.structure.mapCols * this.structure.tileSize);
-    }
-    screenHeight():number{
-        return (this.structure.miniRows * this.structure.tileSize) + (this.structure.mapRows * this.structure.tileSize);
-    }
     
     initMap(){
-        for (var y = 0; y < this.structure.miniRows; y++){
-            for (var x = 0; x < this.structure.miniCols; x++){
+        for (var y = 0; y < mapStuct.miniRows; y++){
+            for (var x = 0; x < mapStuct.miniCols; x++){
                 var mapObj = new lrgMapObj(); 
                 mapObj.x = x;
                 mapObj.y = y;   
@@ -34,14 +20,14 @@ export class mapData{
                 {         
                     var numberOfDoors= this.toolkit.randomInt(5,1);       
                     mapObj.symbol = "#";
-                    mapObj.innerMap = this.mapToolKit.generateBuilding(this.structure, numberOfDoors);
+                    mapObj.innerMap = this.mapToolKit.generateBuilding(numberOfDoors);
                     mapObj.visited = false;
                     mapObj.tileNumber = 34;                      
                 }
                 else
                 {  
                     mapObj.symbol = ".";
-                    mapObj.innerMap = this.mapToolKit.generateOutside(this.structure);
+                    mapObj.innerMap = this.mapToolKit.generateOutside();
                     mapObj.visited = false;
                     mapObj.tileNumber = 33;     
                 }
@@ -53,10 +39,10 @@ export class mapData{
     getMiniMapTileArray():Array<Array<number>>
     {
         var miniMapArray = new Array<Array<number>>();;
-        for (var y = 0; y < this.structure.miniRows; y++){
+        for (var y = 0; y < mapStuct.miniRows; y++){
             
             var tempArray = new Array<number>();
-            for (var x = 0; x < this.structure.miniCols; x++){
+            for (var x = 0; x < mapStuct.miniCols; x++){
                 this.worldMap.filter(a=>
                     {                        
                         if(a.y ==y && a.x == x)
@@ -76,10 +62,10 @@ export class mapData{
     {
         var map = this.worldMap[mapNumber].innerMap;
         var mapArray = new Array<Array<number>>();;
-        for (var y = 0; y < this.structure.mapRows; y++){
+        for (var y = 0; y < mapStuct.mapRows; y++){
             
             var tempArray = new Array<number>();
-            for (var x = 0; x < this.structure.mapCols; x++){
+            for (var x = 0; x < mapStuct.mapCols; x++){
                 map.filter(a=>
                     {                        
                         if(a.y ==y && a.x == x)
