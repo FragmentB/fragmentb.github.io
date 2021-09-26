@@ -25,7 +25,7 @@ export class MistsGame extends Phaser.Game {
   }
 }
 window.onload = () => {
-  config.width = (settings.miniCols * settings.tileSize) + 10 + (settings.mapCols * settings.tileSize);
+  config.width = (settings.miniCols * settings.tileSize) + (settings.padding * 3) + (settings.mapCols * settings.tileSize);
   config.height = (settings.miniRows * settings.tileSize) + (settings.mapRows * settings.tileSize);
   var game = new MistsGame(config);
 };

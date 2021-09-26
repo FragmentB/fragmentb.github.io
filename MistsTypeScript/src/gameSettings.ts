@@ -7,6 +7,7 @@ class gameSettings
     mapCols: number;
     tileSize : number;
     tilesetCols: number;
+    padding: number;
 }
 
 export const settings : gameSettings =
@@ -16,5 +17,6 @@ export const settings : gameSettings =
     tileSize:32,
     miniCols:8,
     miniRows:8,
-    tilesetCols:3
+    tilesetCols:3,
+    padding:5
 }
