@@ -1,8 +1,6 @@
 import "phaser";
-import { Tilemaps } from "phaser";
 import { mapData } from "./map"
-import { tile } from "./mapClasses";
-import { Screen } from "./screen"
+
 export class GameScene extends Phaser.Scene{
 
     map: mapData;
@@ -39,10 +37,10 @@ export class GameScene extends Phaser.Scene{
         var defaultInfo = "Welcome to the Mists";
         var screenHeight = Number(this.game.config.height);
         
-        const miniMapBottom = miniMap.createLayer(0,'tiles',0,0);
+        const miniMapBottom = miniMap.createLayer(0,'tiles',2,2);
         miniMapBottom.setScale(2,2);
 
-        const bigMapBottom = bigMap.createLayer(0,'tiles', 170, 0);
+        const bigMapBottom = bigMap.createLayer(0,'tiles', 167, 2);
         bigMapBottom.setScale(2,2);
 
         //adding text displays for health, defense and cover
@@ -54,7 +52,7 @@ export class GameScene extends Phaser.Scene{
         var defense = this.add.text((0+size),(screenHeight-(size*5))," ",style);
         this.add.text((0+size),(screenHeight-(3*size)),"Cover:",style);
         var cover = this.add.text((0+size),(screenHeight-(size*2))," ",style);
-        var info = this.add.text(((this.map.miniCols+2 * fontSize * 1.8)+size),(screenHeight-(size*2)),defaultInfo,style);
+        var info = this.add.text(((this.map.structure.miniCols+2 * fontSize * 1.8)+size),(screenHeight-(size*2)),defaultInfo,style);
         
     }
 
