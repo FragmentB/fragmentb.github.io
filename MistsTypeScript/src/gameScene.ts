@@ -58,10 +58,10 @@ export class GameScene extends Phaser.Scene{
 
         //adding text displays for health, defense and cover
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(1),"Weapon:",style);
-        var weaponDisplay = this.add.image(this.getNextTextHeightPosition(0)+settings.padding, miniMapWidth,'displayPlate')
+        var weaponDisplay = this.add.image(this.getNextTextHeightPosition(1), miniMapWidth,'displayPlate')
         weaponDisplay.setOrigin(1,0);
         var weaponIcon = this.add.image(weaponDisplay.x - 155, weaponDisplay.y + settings.padding,'stick');
-        weaponIcon.setOrigin(0,0);
+        weaponIcon.setOrigin(1,0);
 
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(3),"Health:",style);
         var healthDisplay = this.add.image(miniMapWidth,this.getNextTextHeightPosition(2)+settings.padding,'displayPlate')
