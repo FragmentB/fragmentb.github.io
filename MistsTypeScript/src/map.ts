@@ -262,13 +262,15 @@ export class mapData{
             for (var x = 0; x < this.miniCols; x++){
                 this.worldMap.filter( a=>
                     {
-                        if(a.x == x && a.y==y)
+                        if(a.x == x && a.y ==y)
                         {
                             tempArray.push(a.tileNumber);
+                            console.log(x,y,a.tileNumber);
                         }
                     }
                 );
-            }
+            };
+            
             miniMapArray.push(tempArray);
         }
 
