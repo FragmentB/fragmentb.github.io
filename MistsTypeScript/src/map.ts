@@ -253,12 +253,14 @@ export class mapData{
         return Math.floor(Math.random() * (max - min + 1) + min)
     }
 
-    getMiniMapTileArray():Array<Array<number>>
+    getMiniMapTileArray():number[][]
     {
-        var miniMapArray = new Array<Array<number>>();
+        var miniMapArray = [];
 
         for (var y = 0; y < this.miniRows; y++){
-            var tempArray = new Array<number>();
+            
+            var tempArray = [];
+
             for (var x = 0; x < this.miniCols; x++){
                 this.worldMap.filter( a=>
                     {
@@ -270,7 +272,8 @@ export class mapData{
                     }
                 );
             };
-            
+            console.log(tempArray);
+
             miniMapArray.push(tempArray);
         }
 
