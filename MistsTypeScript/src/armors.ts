@@ -5,7 +5,7 @@ export class armor{
 }
 
 export const cloth: armor = {
-    name:"cloth",
+    name:"Cloth",
     defense:0,
     image:"src/Images/Armors/cloth.png"
 }

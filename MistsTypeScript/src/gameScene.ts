@@ -43,7 +43,6 @@ export class GameScene extends Phaser.Scene{
         var darkStyle = {font: settings.fontSize+"px monospace", fill:"#000"};;
         
         var defaultInfo = "Welcome to the Mists";
-        var fontPaddingLeft = settings.padding * 2;
         var miniMapWidth = settings.miniCols * settings.tileSize
         var miniMapHeight = settings.miniRows * settings.tileSize
 
@@ -66,7 +65,7 @@ export class GameScene extends Phaser.Scene{
         var weaponDisplay = this.add.image(bigMapBottom.x - settings.padding, miniMapHeight + (settings.padding * 2),'displayPlate')
         weaponDisplay.setOrigin(1,0);
         var weaponHeader =this.add.text(weaponDisplay.x - (weaponDisplay.width + (settings.padding * 2)), weaponDisplay.y + (weaponDisplay.height / 2), "Weapon:",style);
-        weaponHeader.setOrigin(1.0);
+        weaponHeader.setOrigin(1,);
         var weaponIcon = this.add.image(weaponDisplay.x - (weaponDisplay.width - settings.padding), weaponDisplay.y + settings.padding,'stick');
         weaponIcon.setOrigin(0,0);
         var weaponName = this.add.text(weaponIcon.x + weaponIcon.width + (settings.padding * 2), weaponIcon.y,stick.name, darkStyle)
@@ -76,18 +75,19 @@ export class GameScene extends Phaser.Scene{
         var weaponDamage = this.add.text(weaponRange.x + weaponRange.width + (settings.padding * 2), weaponRange.y ,"Dmg:" + stick.damage.toString(),darkStyle)
         weaponDamage.setOrigin(0.0);
         
-        this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(3),"Health:",style);
         var healthDisplay = this.add.image(weaponDisplay.x,weaponDisplay.y + weaponDisplay.height + settings.padding,'displayPlate')
         healthDisplay.setOrigin(1,0);
+        var healthHeader =this.add.text(healthDisplay.x - (healthDisplay.width + (settings.padding * 2)), healthDisplay.y + (healthDisplay.height / 2), "Health:",style);
+        healthHeader.setOrigin(1.);
         for (var h = 0; h < 5; h++){
             this.add.image(healthDisplay.x - (((healthDisplay.width)-16)-32*h), healthDisplay.y + ((healthDisplay.height / 2)),'heart');
         };
 
         
-        this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(5),"Defense:",style);
-        var defenseDisplay = this.add.image(healthDisplay.x ,healthDisplay.y + healthDisplay.height + settings.padding,'displayPlate')
+        var defenseDisplay = this.add.image(healthDisplay.x ,healthDisplay.y + healthDisplay.height + settings.padding,'displayPlate');
         defenseDisplay.setOrigin(1,0);
-        
+        var defenseHeader =this.add.text(defenseDisplay.x - (defenseDisplay.width + (settings.padding * 2)), defenseDisplay.y + (defenseDisplay.height / 2), "Defense:",style);
+        defenseHeader.setOrigin(1.);
         var armorIcon = this.add.image(defenseDisplay.x - (defenseDisplay.width - settings.padding), defenseDisplay.y + settings.padding,'cloth');
         armorIcon.setOrigin(0,0);
         var armorName = this.add.text(armorIcon.x + armorIcon.width + (settings.padding * 2), armorIcon.y,cloth.name, darkStyle)
@@ -95,11 +95,12 @@ export class GameScene extends Phaser.Scene{
         var armorDefense = this.add.text(armorName.x ,armorName.y + armorName.height ,"Defense:" + cloth.defense.toString(), darkStyle)
         armorDefense.setOrigin(0.0);
 
-        this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(7),"Cover:",style);
         var coverDisplay = this.add.image(defenseDisplay.x ,defenseDisplay.y + defenseDisplay.height + settings.padding,'displayPlate')
         coverDisplay.setOrigin(1,0);
+        var coverHeader =this.add.text(coverDisplay.x - (coverDisplay.width + (settings.padding * 2)), coverDisplay.y + (coverDisplay.height / 2), "Cover:",style);
+        coverHeader.setOrigin(1.);
 
-        var info = this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(9),defaultInfo,style);
+        var info = this.add.text(miniMapBottom.x, (settings.padding + coverDisplay.y + (coverDisplay.height/2)),defaultInfo,style);
         
     }
 
@@ -111,23 +112,4 @@ export class GameScene extends Phaser.Scene{
     drawMap():void{
         
     }
-
-    getNextTextHeightPosition(factor:number):number{
-        var miniMapHeight = settings.miniRows * settings.tileSize
-        var padding = settings.padding * factor;
-        var currentHeight = settings.fontSize * factor;
-        var height = miniMapHeight + padding + currentHeight;
-
-        return height;
-    }
-    getNextDisplayPlateHeightPosition(factor:number):number{
-        var miniMapHeight = settings.miniRows * settings.tileSize
-        var padding = settings.padding * factor;
-        var currentHeight = 45 * factor-1;
-        var height = miniMapHeight + padding + currentHeight;
-
-        return height;
-    }
-
-    
 }
