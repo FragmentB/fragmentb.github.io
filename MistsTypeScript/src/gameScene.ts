@@ -3,6 +3,7 @@ import { mapData } from "./map"
 import { settings } from "./gameSettings";
 import { stick } from "./weapons";
 import { cloth } from "./armors";
+import { grass } from "./mapClasses";
 export class GameScene extends Phaser.Scene{
 
     map: mapData;
@@ -62,13 +63,13 @@ export class GameScene extends Phaser.Scene{
 
         //adding text displays for health, defense and cover
         
-        var weaponDisplay = this.add.image(bigMapBottom.x - settings.padding, miniMapHeight + (settings.padding * 2),'displayPlate')
+        var weaponDisplay = this.add.image(bigMapBottom.x - settings.padding, miniMapBottom.y + miniMapBottom.displayHeight + settings.padding,'displayPlate')
         weaponDisplay.setOrigin(1,0);
         var weaponHeader =this.add.text(weaponDisplay.x - (weaponDisplay.width + (settings.padding * 2)), weaponDisplay.y + (weaponDisplay.height / 2), "Weapon:",style);
-        weaponHeader.setOrigin(1,);
+        weaponHeader.setOrigin(1,0.5);
         var weaponIcon = this.add.image(weaponDisplay.x - (weaponDisplay.width - settings.padding), weaponDisplay.y + settings.padding,'stick');
         weaponIcon.setOrigin(0,0);
-        var weaponName = this.add.text(weaponIcon.x + weaponIcon.width + (settings.padding * 2), weaponIcon.y,stick.name, darkStyle)
+        var weaponName = this.add.text(weaponIcon.x + weaponIcon.width + (settings.padding * 2), weaponIcon.y - (settings.padding /2),stick.name, darkStyle)
         weaponName.setOrigin(0.0);
         var weaponRange = this.add.text(weaponName.x ,weaponName.y + weaponName.height ,"Rng:" + stick.range.toString(), darkStyle)
         weaponRange.setOrigin(0.0);
@@ -78,7 +79,7 @@ export class GameScene extends Phaser.Scene{
         var healthDisplay = this.add.image(weaponDisplay.x,weaponDisplay.y + weaponDisplay.height + settings.padding,'displayPlate')
         healthDisplay.setOrigin(1,0);
         var healthHeader =this.add.text(healthDisplay.x - (healthDisplay.width + (settings.padding * 2)), healthDisplay.y + (healthDisplay.height / 2), "Health:",style);
-        healthHeader.setOrigin(1.);
+        healthHeader.setOrigin(1,0.5);
         for (var h = 0; h < 5; h++){
             this.add.image(healthDisplay.x - (((healthDisplay.width)-16)-32*h), healthDisplay.y + ((healthDisplay.height / 2)),'heart');
         };
@@ -87,22 +88,38 @@ export class GameScene extends Phaser.Scene{
         var defenseDisplay = this.add.image(healthDisplay.x ,healthDisplay.y + healthDisplay.height + settings.padding,'displayPlate');
         defenseDisplay.setOrigin(1,0);
         var defenseHeader =this.add.text(defenseDisplay.x - (defenseDisplay.width + (settings.padding * 2)), defenseDisplay.y + (defenseDisplay.height / 2), "Defense:",style);
-        defenseHeader.setOrigin(1.);
+        defenseHeader.setOrigin(1,0.5);
         var armorIcon = this.add.image(defenseDisplay.x - (defenseDisplay.width - settings.padding), defenseDisplay.y + settings.padding,'cloth');
         armorIcon.setOrigin(0,0);
-        var armorName = this.add.text(armorIcon.x + armorIcon.width + (settings.padding * 2), armorIcon.y,cloth.name, darkStyle)
+        var armorName = this.add.text(armorIcon.x + armorIcon.width + (settings.padding * 2), armorIcon.y - (settings.padding /2),cloth.name, darkStyle)
         armorName.setOrigin(0.0);
         var armorDefense = this.add.text(armorName.x ,armorName.y + armorName.height ,"Defense:" + cloth.defense.toString(), darkStyle)
         armorDefense.setOrigin(0.0);
 
         var coverDisplay = this.add.image(defenseDisplay.x ,defenseDisplay.y + defenseDisplay.height + settings.padding,'displayPlate')
         coverDisplay.setOrigin(1,0);
-        var coverHeader =this.add.text(coverDisplay.x - (coverDisplay.width + (settings.padding * 2)), coverDisplay.y + (coverDisplay.height / 2), "Cover:",style);
-        coverHeader.setOrigin(1.);
-
-        var info = this.add.text(miniMapBottom.x, (settings.padding + coverDisplay.y + (coverDisplay.height/2)),defaultInfo,style);
+        var coverHeader =this.add.text(coverDisplay.x - (coverDisplay.width + (settings.padding * 2)), coverDisplay.y + (coverDisplay.height / 2), "Footing:",style);
+        coverHeader.setOrigin(1,0.5);
         
-    }
+        
+        var coverIcon = this.add.image(coverDisplay.x - (coverDisplay.width - settings.padding), coverDisplay.y + settings.padding,"tiles");
+        coverIcon.setCrop(0,0,16,16);
+        coverIcon.setOrigin(0,0);
+        coverIcon.setScale(scale,scale);
+        
+        var coverName = this.add.text(coverIcon.x + (settings.tilesetSize * scale) + (settings.padding * 2), coverIcon.y - (settings.padding /2),grass.name, darkStyle)
+        coverName.setOrigin(0.0);
+        var coverDefense = this.add.text(coverName.x ,coverName.y + coverName.height ,"Cover:" + grass.cover.toString(), darkStyle)
+        coverDefense.setOrigin(0.0);
+
+        var infoDisplay = this.add.image(coverDisplay.x ,coverDisplay.y + coverDisplay.height + settings.padding,'displayPlate');
+        infoDisplay.setScale(1.6,1.2);
+        infoDisplay.setOrigin(1,0);
+
+        var info = this.add.text((settings.padding *3), infoDisplay.y + (infoDisplay.height/2) - settings.padding,"",darkStyle);
+        info.setOrigin(0,0);
+        info.text = defaultInfo;
+        }
 
     update(time):void{
         //TODO
