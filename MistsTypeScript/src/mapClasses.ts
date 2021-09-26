@@ -4,7 +4,7 @@ export class lrgMapObj {
     symbol:string;
     innerMap:Array<mapTile>;
     visited:boolean;
-    image:string;
+    tileNumber:number;
 }
 
 export class mapTile{
@@ -17,9 +17,21 @@ export class tile {
     passable: boolean;
     swimmable: boolean;
     blocksSight:boolean   
-    image: string;
+    tileRow: number;
+    tileNumber: number
     cover: number;
     name: string;   
+}
+
+export const grass : tile = {
+    symbol:'.',
+    passable:true,
+    swimmable:false,
+    blocksSight:false,
+    tileRow:0,
+    tileNumber:0,
+    cover:1,
+    name:"Grass"
 }
 
 export const floor : tile = {
@@ -27,7 +39,8 @@ export const floor : tile = {
     passable:true,
     swimmable:false,
     blocksSight:false,
-    image:"",
+    tileRow:1,
+    tileNumber:0,
     cover:0,
     name:"Floor"
 }
@@ -37,7 +50,8 @@ export const water : tile = {
     passable:true,
     swimmable:true,
     blocksSight:false,
-    image:"",
+    tileRow:2,
+    tileNumber:0,
     cover:4,
     name:"Water"
 }
@@ -47,7 +61,8 @@ export const waterRubble : tile = {
     passable:true,
     swimmable:true,
     blocksSight:false,
-    image:"",
+    tileRow:3,
+    tileNumber:0,
     cover:4,
     name:"WaterRubble"
 }
@@ -57,7 +72,8 @@ export const tree : tile = {
     passable:true,
     swimmable:false,
     blocksSight:true,
-    image:"",
+    tileRow:4,
+    tileNumber:0,
     cover:3,
     name:"Tree"
 }
@@ -67,9 +83,10 @@ export const bush : tile = {
     passable:true,
     swimmable:false,
     blocksSight:false,
-    image:"",
+    tileRow:5,
+    tileNumber:0,
     cover:1,
-    name:"Bush"
+    name:"Rock"
 }
 
 export const nest : tile = {
@@ -77,19 +94,10 @@ export const nest : tile = {
     passable:true,
     swimmable:false,
     blocksSight:false,
-    image:"",
+    tileRow:6,
+    tileNumber:0,
     cover:2,
     name:"Nest"
-}
-
-export const grass : tile = {
-    symbol:'.',
-    passable:true,
-    swimmable:false,
-    blocksSight:false,
-    image:"",
-    cover:1,
-    name:"Grass"
 }
 
 export const box : tile = {
@@ -97,7 +105,8 @@ export const box : tile = {
     passable:true,
     swimmable:false,
     blocksSight:false,
-    image:"",
+    tileRow:7,
+    tileNumber:0,
     cover:2,
     name:"Box"
 }
@@ -107,7 +116,8 @@ export const wall : tile = {
     passable:false,
     swimmable:false,
     blocksSight:true,
-    image:"",
+    tileRow:8,
+    tileNumber:0,
     cover:0,
     name:"Wall"
 }
@@ -117,7 +127,8 @@ export const door : tile = {
     passable:true,
     swimmable:false,
     blocksSight:true,
-    image:"",
+    tileRow:9,
+    tileNumber:0,
     cover:3,
     name:"Door"
 }
@@ -127,7 +138,8 @@ export const rubble : tile = {
     passable:true,
     swimmable:false,
     blocksSight:false,
-    image:"",
+    tileRow:10,
+    tileNumber:0,
     cover:1,
     name:"Rubble"
 }

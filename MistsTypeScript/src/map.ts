@@ -30,14 +30,14 @@ export class mapData{
                     mapObj.symbol = "#";
                     mapObj.innerMap = this.generateBuilding(this.mapRows,this.mapCols, numberOfDoors);
                     mapObj.visited = false;
-                    mapObj.image = "";                      
+                    mapObj.tileNumber = 34;                      
                 }
                 else
                 {  
                     mapObj.symbol = ".";
                     mapObj.innerMap = this.generateOutside(this.mapRows,this.mapCols)
                     mapObj.visited = false;
-                    mapObj.image = "";     
+                    mapObj.tileNumber = 33;     
                 }
             }
             this.worldMap.push(mapObj);
@@ -82,6 +82,9 @@ export class mapData{
                     else if(Math.random() > 0.8)
                         newTile.tile = box;                        
                 }
+
+                newTile.tile.tileNumber = this.generateTileNum(newTile.tile);
+
                 area.push(newTile);
             }
         }
@@ -140,6 +143,7 @@ export class mapData{
                 else
                     newTile.tile = grass;
 
+                newTile.tile.tileNumber = this.generateTileNum(newTile.tile);
                 area.push(newTile)
             }
         }	
@@ -183,6 +187,7 @@ export class mapData{
                 if(a.x == p.x && a.y ==p.y)
                 {
                     a.tile = tile;
+                    a.tile.tileNumber = this.generateTileNum(tile);
                 }
             });
         });            
@@ -197,6 +202,7 @@ export class mapData{
                     if(a.x == 0 && a.tile != grass)
                     {
                         a.tile = rubble;
+                        a.tile.tileNumber = this.generateTileNum(a.tile);
                     }
                 });
                 break;
@@ -205,6 +211,7 @@ export class mapData{
                     if(a.y == 0 && a.tile != grass)
                     {
                         a.tile = rubble;
+                        a.tile.tileNumber = this.generateTileNum(a.tile);
                     }
                 });
                 break;
@@ -213,6 +220,7 @@ export class mapData{
                     if(a.x == this.mapCols - 1 && a.tile != grass)
                     {
                         a.tile = rubble;
+                        a.tile.tileNumber = this.generateTileNum(a.tile);
                     }
                 });
                 break;
@@ -221,6 +229,7 @@ export class mapData{
                     if(a.y == this.mapRows -1 && a.tile != grass)
                     {
                         a.tile = rubble;
+                        a.tile.tileNumber = this.generateTileNum(a.tile);
                     }
                 });
                 break;
@@ -232,7 +241,37 @@ export class mapData{
             if(a.x == x && a.y ==y)
             {
                 a.tile = tile;
+                a.tile.tileNumber = this.generateTileNum(a.tile);
             }
         });
+    }
+
+    generateTileNum(tile:tile): number
+    {
+        var min = tile.tileRow * 3;
+        var max = min + 2 ;
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+
+    getMiniMapTileArray():Array<Array<number>>
+    {
+        var miniMapArray = new Array<Array<number>>();
+
+        for (var y = 0; y < this.miniRows; y++){
+            for (var x = 0; x < this.miniCols; x++){
+                var tempArray = new Array<number>();
+                this.worldMap.filter( a=>
+                    {
+                        if(a.x == x && a.y==y)
+                        {
+                            tempArray.push(a.tileNumber);
+                        }
+                    }
+                );
+            }
+            miniMapArray.push(tempArray);
+        }
+
+        return miniMapArray
     }
 }
