@@ -36,7 +36,7 @@ export class GameScene extends Phaser.Scene{
         var defaultInfo = "Welcome to the Mists";
         var screenHeight = Number(this.game.config.height);
         const bottomLayer = tileMap.createLayer(0,'tiles',0,0);
-        bottomLayer.setScale(size,size)
+        bottomLayer.setScale(3,3)
         //adding text displays for health, defense and cover
         this.add.text((0+size),(screenHeight-(12*size)),"Weapon:",style);
         var dispWeapon =this.add.text((0+size),(screenHeight-(size*11)),"",style);
