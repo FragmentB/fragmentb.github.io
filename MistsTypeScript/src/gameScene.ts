@@ -40,9 +40,9 @@ export class GameScene extends Phaser.Scene{
         var screenHeight = Number(this.game.config.height);
         
         const miniMapBottom = miniMap.createLayer(0,'tiles',0,0);
-        miniMapBottom.setScale(2,2);
+        miniMapBottom.setScale(1.5,1.5);
 
-        const bigMapBottom = bigMap.createLayer(0,'tiles', 0, 180);
+        const bigMapBottom = bigMap.createLayer(0,'tiles', 140, 0);
         bigMapBottom.setScale(2,2);
 
         //adding text displays for health, defense and cover
