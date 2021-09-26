@@ -9,6 +9,7 @@ class gameSettings
     tilesetCols: number;
     padding: number;
     tilesetSize: number;
+    fontSize: number;
 }
 
 export const settings : gameSettings =
@@ -16,6 +17,7 @@ export const settings : gameSettings =
     mapCols:15,
     mapRows:15,
     tileSize:32,
+    fontSize:18,
     tilesetSize:16,
     miniCols:8,
     miniRows:8,

@@ -29,30 +29,30 @@ export class GameScene extends Phaser.Scene{
         const bigMap = this.make.tilemap({data:this.map.getMainMapTileArray(0), tileHeight:settings.tilesetSize, tileWidth:settings.tilesetSize});
         bigMap.addTilesetImage('tiles');
          
-        var fontSize = 32;
-        var size = fontSize*.7;
+        
         var scale = settings.tileSize/settings.tilesetSize;
 
-        var style = {font: size+"px monospace", fill:"#fff"};
+        var style = {font: settings.fontSize+"px monospace", fill:"#fff"};
         var defaultInfo = "Welcome to the Mists";
         var screenHeight = Number(this.game.config.height);
-        
+        var miniMapWidth = settings.miniCols * settings.tileSize
+
         const miniMapBottom = miniMap.createLayer(0,'tiles',settings.padding,settings.padding);
         miniMapBottom.setScale(scale,scale);
 
-        const bigMapBottom = bigMap.createLayer(0,'tiles', (settings.miniCols * settings.tileSize) + (settings.padding * 2), settings.padding);
+        const bigMapBottom = bigMap.createLayer(0,'tiles', (miniMapWidth + (settings.padding * 2)), settings.padding);
         bigMapBottom.setScale(scale,scale);
 
         //adding text displays for health, defense and cover
-        this.add.text((0+size),(screenHeight-(12*size)),"Weapon:",style);
-        var dispWeapon =this.add.text((0+size),(screenHeight-(size*11)),"",style);
-        this.add.text((0+size),(screenHeight-(9*size)),"Health:",style);
-        var health = this.add.text((0+size),(screenHeight-(size*8))," ",style);
-        this.add.text((0+size),(screenHeight-(6*size)),"Defense:",style);
-        var defense = this.add.text((0+size),(screenHeight-(size*5))," ",style);
-        this.add.text((0+size),(screenHeight-(3*size)),"Cover:",style);
-        var cover = this.add.text((0+size),(screenHeight-(size*2))," ",style);
-        var info = this.add.text(((settings.miniCols+2 * fontSize * 1.8)+size),(screenHeight-(size*2)),defaultInfo,style);
+        this.add.text(settings.padding, this.getNextTextHeightPosition(1),"Weapon:",style);
+        var dispWeapon = this.add.text(settings.padding, this.getNextTextHeightPosition(2),"",style);
+        this.add.text(settings.padding, this.getNextTextHeightPosition(3),"Health:",style);
+        var health = this.add.text(settings.padding, this.getNextTextHeightPosition(4),"",style);
+        this.add.text(settings.padding, this.getNextTextHeightPosition(5),"Defense",style);
+        var defense = this.add.text(settings.padding, this.getNextTextHeightPosition(6),"",style);
+        this.add.text(settings.padding, this.getNextTextHeightPosition(7),"Cover",style);
+        var cover = this.add.text(settings.padding, this.getNextTextHeightPosition(8),"",style);
+        var info = this.add.text(settings.padding, this.getNextTextHeightPosition(9),defaultInfo,style);
         
     }
 
@@ -63,5 +63,14 @@ export class GameScene extends Phaser.Scene{
 
     drawMap():void{
         
+    }
+
+    getNextTextHeightPosition(factor:number):number{
+        var miniMapHeight = settings.miniRows * settings.tileSize
+        var padding = settings.padding * factor;
+        var currentHeight = settings.fontSize * factor;
+        var height = miniMapHeight + padding + currentHeight;
+
+        return height;
     }
 }
