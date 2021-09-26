@@ -40,6 +40,7 @@ export class GameScene extends Phaser.Scene{
         var defaultInfo = "Welcome to the Mists";
         var fontPaddingLeft = settings.padding * 2;
         var miniMapWidth = settings.miniCols * settings.tileSize
+        
 
         const miniMapBottom = miniMap.createLayer(0,'tiles',settings.padding,settings.padding);
         miniMapBottom.setScale(scale,scale);
@@ -57,9 +58,9 @@ export class GameScene extends Phaser.Scene{
 
         //adding text displays for health, defense and cover
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(1),"Weapon:",style);
-        var weaponDisplay = this.add.image(miniMapWidth,this.getNextTextHeightPosition(0)+settings.padding,'displayPlate')
+        var weaponDisplay = this.add.image(this.getNextTextHeightPosition(0)+settings.padding, miniMapWidth,'displayPlate')
         weaponDisplay.setOrigin(1,0);
-        var weaponIcon = this.add.image(weaponDisplay.x +settings.padding, weaponDisplay.y + settings.padding,'stick');
+        var weaponIcon = this.add.image(weaponDisplay.x - 155, weaponDisplay.y + settings.padding,'stick');
         weaponIcon.setOrigin(0,0);
 
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(3),"Health:",style);
