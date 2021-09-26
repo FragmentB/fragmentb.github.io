@@ -5,6 +5,7 @@ export class GameScene extends Phaser.Scene{
 
     map: mapData;
     screen: Screen;
+    
 
     constructor(){
         super({
@@ -23,6 +24,24 @@ export class GameScene extends Phaser.Scene{
 
     create():void{
         this.map.initMap();
+
+        var fontSize = 32;
+        var size = fontSize*.7;
+        var style = {font: size+"px monospace", fill:"#fff"};
+        var defaultInfo = "Welcome to the Mists";
+        var screenHeight = Number(this.game.config.height);
+        //adding text displays for health, defense and cover
+        this.add.text((0+size),(screenHeight-(12*size)),"Weapon:",style);
+        var dispWeapon =this.add.text((0+size),(screenHeight-(size*11)),"",style);
+        this.add.text((0+size),(screenHeight-(9*size)),"Health:",style);
+        var health = this.add.text((0+size),(screenHeight-(size*8))," ",style);
+        this.add.text((0+size),(screenHeight-(6*size)),"Defense:",style);
+        var defense = this.add.text((0+size),(screenHeight-(size*5))," ",style);
+        this.add.text((0+size),(screenHeight-(3*size)),"Cover:",style);
+        var cover = this.add.text((0+size),(screenHeight-(size*2))," ",style);
+        var info = this.add.text(((this.map.miniCols+2 * fontSize * 1.8)+size),(screenHeight-(size*2)),defaultInfo,style);
+        
+        
     }
 
     update(time):void{
