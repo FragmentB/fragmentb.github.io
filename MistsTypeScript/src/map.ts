@@ -12,7 +12,7 @@ export class mapData{
     worldMap= new Array<lrgMapObj>();
 
     screenWidth():number    { 
-        return (this.miniCols * this.tileSize *0.6) + (this.mapCols * this.tileSize);
+        return (this.miniCols * this.tileSize) + 10 + (this.mapCols * this.tileSize);
     }
     screenHeight():number{
         return (this.miniRows * this.tileSize) + (this.mapRows * this.tileSize);
