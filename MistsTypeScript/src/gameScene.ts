@@ -34,7 +34,7 @@ export class GameScene extends Phaser.Scene{
 
         var style = {font: settings.fontSize+"px monospace", fill:"#fff"};
         var defaultInfo = "Welcome to the Mists";
-        var screenHeight = Number(this.game.config.height);
+        var fontPaddingLeft = settings.padding * 2;
         var miniMapWidth = settings.miniCols * settings.tileSize
 
         const miniMapBottom = miniMap.createLayer(0,'tiles',settings.padding,settings.padding);
@@ -44,15 +44,11 @@ export class GameScene extends Phaser.Scene{
         bigMapBottom.setScale(scale,scale);
 
         //adding text displays for health, defense and cover
-        this.add.text(settings.padding, this.getNextTextHeightPosition(1),"Weapon:",style);
-        var dispWeapon = this.add.text(settings.padding, this.getNextTextHeightPosition(2),"",style);
-        this.add.text(settings.padding, this.getNextTextHeightPosition(3),"Health:",style);
-        var health = this.add.text(settings.padding, this.getNextTextHeightPosition(4),"",style);
-        this.add.text(settings.padding, this.getNextTextHeightPosition(5),"Defense",style);
-        var defense = this.add.text(settings.padding, this.getNextTextHeightPosition(6),"",style);
-        this.add.text(settings.padding, this.getNextTextHeightPosition(7),"Cover",style);
-        var cover = this.add.text(settings.padding, this.getNextTextHeightPosition(8),"",style);
-        var info = this.add.text(settings.padding, this.getNextTextHeightPosition(9),defaultInfo,style);
+        this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(1),"Weapon:",style);
+        this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(3),"Health:",style);
+        this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(5),"Defense:",style);
+        this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(7),"Cover:",style);
+        var info = this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(9),defaultInfo,style);
         
     }
 
