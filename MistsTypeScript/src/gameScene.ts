@@ -45,17 +45,19 @@ export class GameScene extends Phaser.Scene{
         const bigMapBottom = bigMap.createLayer(0,'tiles', (miniMapWidth + (settings.padding * 2)), settings.padding);
         bigMapBottom.setScale(scale,scale);
 
-        this.add.image(settings.padding + settings.tileSize,settings.padding + settings.tileSize,"playa");
+        var playa = this.add.image(settings.padding,settings.padding,"playa");
+        playa.setScale(scale,scale);
+        playa.setOrigin(0,0);
 
         //adding text displays for health, defense and cover
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(1),"Weapon:",style);
-        this.add.image(miniMapWidth - settings.padding - 80,this.getNextTextHeightPosition(2),'displayPlate')
+        this.add.image(miniMapWidth - settings.padding - 80,this.getNextTextHeightPosition(1.5),'displayPlate')
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(3),"Health:",style);
-        this.add.image(miniMapWidth - settings.padding - 80,this.getNextTextHeightPosition(4),'displayPlate')
+        this.add.image(miniMapWidth - settings.padding - 80,this.getNextTextHeightPosition(3.5),'displayPlate')
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(5),"Defense:",style);
-        this.add.image(miniMapWidth - settings.padding - 80,this.getNextTextHeightPosition(6),'displayPlate')
+        this.add.image(miniMapWidth - settings.padding - 80,this.getNextTextHeightPosition(5.5),'displayPlate')
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(7),"Cover:",style);
-        this.add.image(miniMapWidth - settings.padding - 80,this.getNextTextHeightPosition(8),'displayPlate')
+        this.add.image(miniMapWidth - settings.padding - 80,this.getNextTextHeightPosition(7.5),'displayPlate')
         var info = this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(9),defaultInfo,style);
         
     }
