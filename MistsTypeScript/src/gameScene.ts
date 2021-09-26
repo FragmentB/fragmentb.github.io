@@ -19,7 +19,7 @@ export class GameScene extends Phaser.Scene{
     }
     
     preload():void{
-        this.load.image("tiles","src/images/simpleTiles.png");
+        this.load.image("tiles","src/Images/simpleTiles.png");
     }
 
     create():void{

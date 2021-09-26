@@ -258,8 +258,8 @@ export class mapData{
         var miniMapArray = new Array<Array<number>>();
 
         for (var y = 0; y < this.miniRows; y++){
+            var tempArray = new Array<number>();
             for (var x = 0; x < this.miniCols; x++){
-                var tempArray = new Array<number>();
                 this.worldMap.filter( a=>
                     {
                         if(a.x == x && a.y==y)
