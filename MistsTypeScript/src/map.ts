@@ -39,8 +39,8 @@ export class mapData{
                     mapObj.visited = false;
                     mapObj.tileNumber = 33;     
                 }
+                this.worldMap.push(mapObj);
             }
-            this.worldMap.push(mapObj);
         }
     }
 
@@ -256,21 +256,19 @@ export class mapData{
     getMiniMapTileArray():number[][]
     {
         var miniMapArray = [];
-
         for (var y = 0; y < this.miniRows; y++){
             
             var tempArray = [];
             for (var x = 0; x < this.miniCols; x++){
                 this.worldMap.filter(a=>
                     {                        
-                        if(a.y ==y, a.x == x)
+                        if(a.y ==y && a.x == x)
                         {
                             tempArray.push(a.tileNumber);
                         }
                     }
                 );
             };
-
             miniMapArray.push(tempArray);
         }
 
