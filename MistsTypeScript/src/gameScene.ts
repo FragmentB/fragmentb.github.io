@@ -36,7 +36,9 @@ export class GameScene extends Phaser.Scene{
         
         var scale = settings.tileSize/settings.tilesetSize;
 
-        var style = {font: settings.fontSize+"px monospace", fill:"#000"};
+        var style = {font: settings.fontSize+"px monospace", fill:"#fff"};
+        var darkStyle = style;
+        darkStyle.fill = "#000";
         var defaultInfo = "Welcome to the Mists";
         var fontPaddingLeft = settings.padding * 2;
         var miniMapWidth = settings.miniCols * settings.tileSize
@@ -58,15 +60,15 @@ export class GameScene extends Phaser.Scene{
 
         //adding text displays for health, defense and cover
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(1),"Weapon:",style);
-        var weaponDisplay = this.add.image(miniMapWidth, miniMapHeight + settings.padding,'displayPlate')
+        var weaponDisplay = this.add.image(bigMapBottom.x - settings.padding, miniMapHeight + (settings.padding * 2),'displayPlate')
         weaponDisplay.setOrigin(1,0);
         var weaponIcon = this.add.image(weaponDisplay.x - 155, weaponDisplay.y + settings.padding,'stick');
         weaponIcon.setOrigin(0,0);
-        var weaponName = this.add.text(weaponIcon.x + settings.padding,weaponIcon.y,stick.name, style)
+        var weaponName = this.add.text(weaponIcon.x + weaponIcon.width + settings.padding, weaponIcon.y,stick.name, darkStyle)
         weaponName.setOrigin(0.0);
-        var weaponRange = this.add.text(weaponName.x ,weaponName.y + 2 ,"R: " + stick.range.toString())
+        var weaponRange = this.add.text(weaponName.x ,weaponName.y + weaponName.height + 2 ,"R: " + stick.range.toString(), darkStyle)
         weaponRange.setOrigin(0.0);
-        var weaponDamage = this.add.text(weaponRange.x + weaponRange.width + settings.padding, weaponRange.y ,"D: " + stick.damage.toString())
+        var weaponDamage = this.add.text(weaponRange.x + weaponRange.width + settings.padding, weaponRange.y ,"D: " + stick.damage.toString(),darkStyle)
         weaponDamage.setOrigin(0.0);
         
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(3),"Health:",style);
