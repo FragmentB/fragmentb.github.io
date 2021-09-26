@@ -45,9 +45,13 @@ export class GameScene extends Phaser.Scene{
         const bigMapBottom = bigMap.createLayer(0,'tiles', (miniMapWidth + (settings.padding * 2)), settings.padding);
         bigMapBottom.setScale(scale,scale);
 
-        var playa = this.add.image(settings.padding,settings.padding,"playa");
-        playa.setScale(scale,scale);
-        playa.setOrigin(0,0);
+        var miniPlaya = this.add.image(settings.padding,settings.padding,"playa");
+        miniPlaya.setScale(scale,scale);
+        miniPlaya.setOrigin(0,0); 
+        
+        var mainPlaya = this.add.image(miniMapWidth + (settings.padding * 2),settings.padding,"playa");
+        mainPlaya.setScale(scale,scale);
+        mainPlaya.setOrigin(0,0); 
 
         //adding text displays for health, defense and cover
         this.add.text(fontPaddingLeft, this.getNextTextHeightPosition(1),"Weapon:",style);
