@@ -22,6 +22,7 @@ export class GameScene extends Phaser.Scene{
     preload():void{
         this.load.image("tiles","src/Images/simpleTiles.png");
         this.load.image("playa","src/Images/tempPlayer.png");
+        this.load.image("car","src/Images/tempVehicle.png");
         this.load.image("displayPlate","src/Images/tempPlate.png");
         this.load.image("heart","src/Images/heart.png");
         this.load.image("stick", stick.image);
@@ -53,6 +54,9 @@ export class GameScene extends Phaser.Scene{
         const bigMapBottom = bigMap.createLayer(0,'tiles', (miniMapWidth + (settings.padding * 2)), settings.padding);
         bigMapBottom.setScale(scale,scale);
 
+        var miniCar = this.add.image(settings.padding,settings.padding,"car");
+        miniCar.setOrigin(0,0); 
+
         var miniPlaya = this.add.image(settings.padding,settings.padding,"playa");
         miniPlaya.setScale(scale,scale);
         miniPlaya.setOrigin(0,0); 
@@ -60,9 +64,12 @@ export class GameScene extends Phaser.Scene{
         var mainPlaya = this.add.image(miniMapWidth + (settings.padding * 2),settings.padding,"playa");
         mainPlaya.setScale(scale,scale);
         mainPlaya.setOrigin(0,0); 
+                
+        var maincar = this.add.image(miniMapWidth + (settings.tileSize) + (settings.padding * 2),settings.padding,"car");
+        maincar.setOrigin(0,0);   
+
 
         //adding text displays for health, defense and cover
-        
         var weaponDisplay = this.add.image(bigMapBottom.x - settings.padding, miniMapBottom.y + miniMapBottom.displayHeight + settings.padding,'displayPlate')
         weaponDisplay.setOrigin(1,0);
         var weaponHeader =this.add.text(weaponDisplay.x - (weaponDisplay.width + (settings.padding * 2)), weaponDisplay.y + (weaponDisplay.height / 2), "Weapon:",style);
@@ -98,7 +105,7 @@ export class GameScene extends Phaser.Scene{
 
         var coverDisplay = this.add.image(defenseDisplay.x ,defenseDisplay.y + defenseDisplay.height + settings.padding,'displayPlate')
         coverDisplay.setOrigin(1,0);
-        var coverHeader =this.add.text(coverDisplay.x - (coverDisplay.width + (settings.padding * 2)), coverDisplay.y + (coverDisplay.height / 2), "Footing:",style);
+        var coverHeader =this.add.text(coverDisplay.x - (coverDisplay.width + (settings.padding * 2)), coverDisplay.y + (coverDisplay.height / 2), "Terrain:",style);
         coverHeader.setOrigin(1,0.5);
         
         

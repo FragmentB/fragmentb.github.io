@@ -85,7 +85,7 @@ export class mapTools{
         return area;
     }
 
-    generateOutside(): Array<mapTile>
+    generateOutside(restrictTop:boolean,restrictBottom:boolean,restrictLeft:boolean,restrictRight:boolean): Array<mapTile>
     {
         var area = new Array<mapTile>();
         for (var y = 0; y < settings.mapRows; y++){
@@ -93,15 +93,23 @@ export class mapTools{
                 var newTile = new mapTile()
                 newTile.x = x;
                 newTile.y = y;
-                                
-                if(Math.random() > 0.9)
-                    newTile.tile = tree;
-                else if (Math.random() > 0.9)
-                    newTile.tile = bush;
-                else if (Math.random() > 0.99)
-                    newTile.tile = nest;
-                else
+                if((x == 0 && restrictTop) 
+                    || (x == settings.mapCols - 1 && restrictBottom ) 
+                    || (y == 0 && restrictLeft )
+                    || (y == settings.mapRows -1 && restrictRight))
+                {
                     newTile.tile = grass;
+                }
+                else{
+                    if(Math.random() > 0.9)
+                        newTile.tile = tree;
+                    else if (Math.random() > 0.9)
+                        newTile.tile = bush;
+                    else if (Math.random() > 0.99)
+                        newTile.tile = nest;
+                    else
+                        newTile.tile = grass;
+                }                
 
                 newTile.tile.tileNumber = this.generateTileNum(newTile.tile);
                 area.push(newTile)
@@ -123,8 +131,8 @@ export class mapTools{
 
     generatePuddle(area:Array<mapTile>, tile:tile){
         
-        var startX = this.toolkit.randomInt(settings.mapRows-1, 0);
-        var startY = this.toolkit.randomInt(settings.mapCols-1, 0);     
+        var startX = this.toolkit.randomInt(settings.mapRows-1, 1);
+        var startY = this.toolkit.randomInt(settings.mapCols-1, 1);     
         var puddleRows = this.toolkit.randomInt(4,1);
         var puddleCols = this.toolkit.randomInt(4,1);
         var puddle = new Array<mapTile>();

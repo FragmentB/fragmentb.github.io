@@ -25,7 +25,7 @@ export class mapData{
                 else
                 {  
                     mapObj.symbol = ".";
-                    mapObj.innerMap = this.mapToolKit.generateOutside();
+                    mapObj.innerMap = this.mapToolKit.generateOutside(x==0,x==settings.miniCols-1,y==0,y==settings.miniRows);
                     mapObj.visited = false;
                     mapObj.tileNumber = 33;     
                 }
@@ -54,6 +54,11 @@ export class mapData{
         }
 
         return miniMapArray;
+    }
+
+    getMapNumber(x:number,y:number)
+    {
+        return this.worldMap.findIndex( a=> a.x==x && a.y==y);
     }
 
     getMainMapTileArray(mapNumber:number): Array<Array<number>>
