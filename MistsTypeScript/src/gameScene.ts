@@ -4,10 +4,13 @@ import { settings } from "./gameSettings";
 import { stick } from "./weapons";
 import { cloth } from "./armors";
 import { grass } from "./mapClasses";
+import { playerData } from "./player";
+
 export class GameScene extends Phaser.Scene{
 
     map: mapData;
     screen: Screen;
+    player: playerData;
 
     constructor(){
         super({
@@ -17,6 +20,7 @@ export class GameScene extends Phaser.Scene{
 
     init(params): void{
         this.map = new mapData();
+        this.player = new playerData();
     }
     
     preload():void{
@@ -31,6 +35,8 @@ export class GameScene extends Phaser.Scene{
 
     create():void{
         this.map.initMap();
+        this.player.initPlayer();
+        console.log(this.player);
 
         const miniMap = this.make.tilemap({data:this.map.getMiniMapTileArray(), tileHeight:settings.tilesetSize, tileWidth:settings.tilesetSize});
         miniMap.addTilesetImage('tiles');

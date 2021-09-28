@@ -4,7 +4,7 @@ import { settings } from "./gameSettings";
 import { tools } from "./tools";
 import { stick } from "./weapons";
 
-export class actorData{
+export class playerData{
     toolkit = new tools();
     mainPlayer = new actor();
 
@@ -65,6 +65,9 @@ export class actorData{
                 player.facing= direction.Up;
                 break; 
         }
+        
+        this.mainPlayer = player;
 
     }
+    
 }
