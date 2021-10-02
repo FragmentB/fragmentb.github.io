@@ -131,8 +131,8 @@ export class mapTools{
 
     generatePuddle(area:Array<mapTile>, tile:tile){
         
-        var startX = this.toolkit.randomInt(settings.mapRows-1, 1);
-        var startY = this.toolkit.randomInt(settings.mapCols-1, 1);     
+        var startX = this.toolkit.randomInt(settings.mapRows-2, 1);
+        var startY = this.toolkit.randomInt(settings.mapCols-2, 1);     
         var puddleRows = this.toolkit.randomInt(4,1);
         var puddleCols = this.toolkit.randomInt(4,1);
         var puddle = new Array<mapTile>();
@@ -140,7 +140,7 @@ export class mapTools{
         {
             for(var a=0;a<puddleCols;a++)
             {
-                if(startX+a < settings.mapCols && startY+i < settings.mapRows)
+                if(startX+a < settings.mapCols-1 && startY+i < settings.mapRows-1)
                 {
                     var puddleTile = new mapTile();
                     puddleTile.tile = tile;

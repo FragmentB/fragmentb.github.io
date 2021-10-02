@@ -32,27 +32,32 @@ export class GameScene extends Phaser.Scene{
         this.load.image("stick", stick.image);
         this.load.image("cloth", cloth.image);
     }
-
+    
     create():void{
         this.map.initMap();
         this.player.initPlayer();
+        
+        var scale = settings.tileSize/settings.tilesetSize;
+        var style = {font: settings.fontSize+"px monospace", fill:"#fff"};
+        var darkStyle = {font: settings.fontSize+"px monospace", fill:"#000"};;       
+        var defaultInfo = "Welcome to the Mists";
+        var miniMapWidth = settings.miniCols * settings.tileSize;
+        var miniMapHeight = settings.miniRows * settings.tileSize;
+        var escapeCoords = this.player.getMiniMapPosition();
+        var miniCoords = escapeCoords;
+        var initPosition =  this.player.getMainMapPosition();
+        var playerMainPosition = initPosition;
+        var mapToLoad = this.map.getMapNumber(this.player.mainPlayer.miniX, this.player.mainPlayer.miniY);
+        
         console.log(this.player);
+        console.log(mapToLoad);
+        console.log(this.map.worldMap);
 
         const miniMap = this.make.tilemap({data:this.map.getMiniMapTileArray(), tileHeight:settings.tilesetSize, tileWidth:settings.tilesetSize});
         miniMap.addTilesetImage('tiles');
 
-        const bigMap = this.make.tilemap({data:this.map.getMainMapTileArray(0), tileHeight:settings.tilesetSize, tileWidth:settings.tilesetSize});
-        bigMap.addTilesetImage('tiles');
-         
-        
-        var scale = settings.tileSize/settings.tilesetSize;
-
-        var style = {font: settings.fontSize+"px monospace", fill:"#fff"};
-        var darkStyle = {font: settings.fontSize+"px monospace", fill:"#000"};;
-        
-        var defaultInfo = "Welcome to the Mists";
-        var miniMapWidth = settings.miniCols * settings.tileSize;
-        var miniMapHeight = settings.miniRows * settings.tileSize;
+        const bigMap = this.make.tilemap({data:this.map.getMainMapTileArray(mapToLoad), tileHeight:settings.tilesetSize, tileWidth:settings.tilesetSize});
+        bigMap.addTilesetImage('tiles');      
 
         const miniMapBottom = miniMap.createLayer(0,'tiles',settings.padding,settings.padding);
         miniMapBottom.setScale(scale,scale);
@@ -60,18 +65,19 @@ export class GameScene extends Phaser.Scene{
         const bigMapBottom = bigMap.createLayer(0,'tiles', (miniMapWidth + (settings.padding * 2)), settings.padding);
         bigMapBottom.setScale(scale,scale);
 
-        var miniCar = this.add.image(settings.padding,settings.padding,"car");
+
+        var miniCar = this.add.image(escapeCoords[0],escapeCoords[1],"car");
         miniCar.setOrigin(0,0); 
 
-        var miniPlaya = this.add.image(settings.padding,settings.padding,"playa");
+        var miniPlaya = this.add.image(miniCoords[0], miniCoords[1],"playa");
         miniPlaya.setScale(scale,scale);
         miniPlaya.setOrigin(0,0); 
         
-        var mainPlaya = this.add.image(miniMapWidth + (settings.padding * 2),settings.padding,"playa");
+        var mainPlaya = this.add.image(miniMapWidth + playerMainPosition[0], playerMainPosition[1],"playa");
         mainPlaya.setScale(scale,scale);
         mainPlaya.setOrigin(0,0); 
                 
-        var maincar = this.add.image(miniMapWidth + (settings.tileSize) + (settings.padding * 2),settings.padding,"car");
+        var maincar = this.add.image(miniMapWidth + initPosition[0], initPosition[1],"car");
         maincar.setOrigin(0,0);   
 
 

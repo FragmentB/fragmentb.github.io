@@ -44,7 +44,7 @@ export class playerData{
             case 3:
             case 4:
                 player.miniX = settings.miniCols-1;
-                player.miniX = settings.mapCols-1;
+                player.x = settings.mapCols-1;
                 player.miniY = this.toolkit.randomInt(settings.miniRows-1,0);
                 player.y = this.toolkit.randomInt(settings.mapRows-1,0);
                 player.facing= direction.Left;
@@ -68,6 +68,29 @@ export class playerData{
         
         this.mainPlayer = player;
 
+    }
+
+
+    getMiniMapPosition(): Array<number>
+    {
+        var coords = new Array<number>();
+        var x = (this.mainPlayer.miniX * settings.tileSize) + settings.padding;
+        var y =  (this.mainPlayer.miniY * settings.tileSize) + settings.padding;
+        coords.push(x);
+        coords.push(y);
+
+        return coords
+    }
+
+    getMainMapPosition(): Array<number>
+    {
+        var coords = new Array<number>();
+        var x = (this.mainPlayer.x * settings.tileSize) + (settings.padding * 2);
+        var y =  (this.mainPlayer.y * settings.tileSize) + settings.padding;
+        coords.push(x);
+        coords.push(y);
+
+        return coords
     }
     
 }
