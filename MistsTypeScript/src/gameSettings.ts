@@ -16,8 +16,8 @@ export const settings : gameSettings =
 {
     mapCols:15,
     mapRows:15,
-    tileSize:32,
-    fontSize:16,
+    tileSize:64,
+    fontSize:32,
     tilesetSize:16,
     miniCols:8,
     miniRows:8,

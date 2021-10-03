@@ -13,8 +13,8 @@ export class playerData{
         var playerCharacter = new character();
         playerCharacter.armor = cloth;
         playerCharacter.weapon = stick;
-        playerCharacter.currentHP = 5;
-        playerCharacter.maxHP = 5;
+        playerCharacter.currentHP = 12;
+        playerCharacter.maxHP =5;
         playerCharacter.damage = 1;
         playerCharacter.defense = 1;
         playerCharacter.luck = 1;
@@ -68,29 +68,5 @@ export class playerData{
         
         this.mainPlayer = player;
 
-    }
-
-
-    getMiniMapPosition(): Array<number>
-    {
-        var coords = new Array<number>();
-        var x = (this.mainPlayer.miniX * settings.tileSize) + settings.padding;
-        var y =  (this.mainPlayer.miniY * settings.tileSize) + settings.padding;
-        coords.push(x);
-        coords.push(y);
-
-        return coords
-    }
-
-    getMainMapPosition(): Array<number>
-    {
-        var coords = new Array<number>();
-        var x = (this.mainPlayer.x * settings.tileSize) + (settings.padding * 2);
-        var y =  (this.mainPlayer.y * settings.tileSize) + settings.padding;
-        coords.push(x);
-        coords.push(y);
-
-        return coords
-    }
-    
+    }    
 }

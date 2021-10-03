@@ -1,7 +1,8 @@
 import {tools} from "./tools";
-import {lrgMapObj} from "./mapClasses";
+import {lrgMapObj, tile} from "./mapClasses";
 import { mapTools} from "./mapTools";
 import { settings } from "./gameSettings";
+import { actor } from "./actorClasses";
 
 export class mapData{
     toolkit = new tools();
@@ -56,9 +57,18 @@ export class mapData{
         return miniMapArray;
     }
 
-    getMapNumber(x:number,y:number)
+    getMapNumber(actor:actor): number
     {
-        return this.worldMap.findIndex( a=> a.x==x && a.y==y);
+        return this.worldMap.findIndex(a=> a.x==actor.miniX && a.y==actor.miniY);
+    }
+
+    getSpecificTile(actor:actor,xOffset:number= 0, yOffset:number = 0) : tile
+    {
+        var mapNumber = this.getMapNumber(actor);
+        var map = this.worldMap[mapNumber].innerMap;
+        var tileSpace = map.find(a=> a.x==actor.x + xOffset && a.y==actor.y + yOffset);
+
+        return tileSpace.tile;
     }
 
     getMainMapTileArray(mapNumber:number): Array<Array<number>>
