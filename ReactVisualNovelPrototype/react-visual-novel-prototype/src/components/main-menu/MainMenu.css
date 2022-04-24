@@ -1,0 +1,27 @@
+.menuBar span{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 30px;    
+    margin-left: 5px;
+    background-color: black;
+    border: 2px solid gray;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.menuLink {
+    color: white;
+    text-decoration: none;
+  }
+
+.menuLink:hover {
+    color: plum;
+}
+  
+.menuBar{
+    width: 600px;
+    position: absolute;
+    margin-top: 818px;
+}

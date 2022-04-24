@@ -1,0 +1,36 @@
+.optionPage{
+    display: flex;   
+    justify-content: center;
+}
+
+.optionMenu{
+    background-image: url(../../images/OptionBG.png);
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: 75%;
+    width: 800px;
+    height: 878px;;
+    display:block;
+    justify-content: center;
+}
+
+.optionMenu h1{
+    font-size: xx-large;
+}
+
+.optionList{
+    width: 300px;
+    margin-left: 500px;
+}
+
+.optionList div{
+    margin-top: 20px;
+    height: 50px;
+    font-size: large;
+    border: 2px solid black;
+    font-weight: bold;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
