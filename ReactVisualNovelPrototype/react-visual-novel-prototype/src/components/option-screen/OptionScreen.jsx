@@ -1,5 +1,5 @@
 import React from "react";
-import './OptionScreen.css'
+import './OptionScreen.scss'
 import MainMenu from 'components/main-menu/MainMenu';
 
 const OptionScreen = (props) => (
@@ -17,7 +17,7 @@ const OptionScreen = (props) => (
                 <div>Option Goes Here </div>
             </div>
         </div>
-        <MainMenu></MainMenu>
+        <MainMenu />
     </div>
 );
 

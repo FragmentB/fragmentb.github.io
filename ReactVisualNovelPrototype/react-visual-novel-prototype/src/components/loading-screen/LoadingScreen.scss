@@ -1,0 +1,15 @@
+.loadingScreen{
+    display: flex;   
+    justify-content: center;
+}
+
+.loadingMenu{
+    background-image: url(../../images/LoadingScreen.png);
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: 75%;
+    width: 800px;
+    height: 878px;;
+    display:block;
+    justify-content: center;
+}

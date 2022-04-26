@@ -1,0 +1,15 @@
+.galleryPage{
+    display: flex;
+    justify-content: center;
+}
+
+.galleryList{
+    background-image: url(../../images/GalleryBG.png);
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: 65%;
+    width: 800px;
+    height: 878px;;
+    display:block;
+    justify-content: center;
+}

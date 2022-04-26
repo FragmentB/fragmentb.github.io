@@ -1,7 +1,7 @@
 import React from "react";
+import './TitleScreen.scss';
 import TitleScreenImage from "../../images/TitleScreenImage.png"
 import TitleCard from "../../images/TitleCard.png"
-import './TitleScreen.css';
 import MainMenu from "components/main-menu/MainMenu";
 
 const TitleScreen = (props) => (

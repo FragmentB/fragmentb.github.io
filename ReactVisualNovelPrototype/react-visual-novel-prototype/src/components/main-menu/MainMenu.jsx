@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom"
-import './MainMenu.css'
+import './MainMenu.scss'
+
 function HeaderView() {
     let location = useLocation();
     console.log(location.pathname);
@@ -13,16 +14,16 @@ const MainMenu = (props) => (
             <Link className="menuLink" to="/"> Title Screen </Link>  
         </span>
         <span>
-            <Link className="menuLink" to="game"> Start Game </Link>  
+            <Link className="menuLink" to="/game"> Start Game </Link>  
         </span>
         <span>
-            <Link className="menuLink" to="load"> Load Game </Link>  
+            <Link className="menuLink" to="/load"> Load Game </Link>  
         </span>
         <span>
-            <Link className="menuLink" to="option"> Options </Link>  
+            <Link className="menuLink" to="/option"> Options </Link>  
         </span>
         <span>
-            <Link className="menuLink" to="gallery"> Gallery </Link>  
+            <Link className="menuLink" to="/gallery"> Gallery </Link>  
         </span> 
     </div>
 );
