@@ -6,7 +6,6 @@ const LoadingScreen = (props) => (
     <div className="loadingScreen">
         <div className="loadingMenu">
             <h1>Loading Screeen</h1>
-
         </div>
         <MainMenu />
     </div>

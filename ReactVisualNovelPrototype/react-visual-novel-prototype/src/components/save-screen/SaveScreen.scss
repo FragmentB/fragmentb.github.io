@@ -1,0 +1,15 @@
+.saveScreen{
+    display: flex;   
+    justify-content: center;
+}
+
+.saveMenu{
+    background-image: url(../../images/LoadingScreen.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 90%;
+    width: 800px;
+    height: 878px;;
+    display:block;
+    justify-content: center;
+}
