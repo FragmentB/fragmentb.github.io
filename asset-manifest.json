@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/react-visual-novel-prototype/static/css/main.4e72b917.css",
+    "main.js": "/react-visual-novel-prototype/static/js/main.e2ed44d3.js",
+    "static/js/787.55967e26.chunk.js": "/react-visual-novel-prototype/static/js/787.55967e26.chunk.js",
+    "static/media/TitleScreenImage.png": "/react-visual-novel-prototype/static/media/TitleScreenImage.65be5218b05fdc4c1fca.png",
+    "static/media/OptionBG.png": "/react-visual-novel-prototype/static/media/OptionBG.642d80f03fbea4c87394.png",
+    "static/media/LoadingScreen.png": "/react-visual-novel-prototype/static/media/LoadingScreen.6fadeb5d352ea7b72b3e.png",
+    "static/media/GalleryBG.png": "/react-visual-novel-prototype/static/media/GalleryBG.c1092d5aaff9ef7ec2ce.png",
+    "static/media/TitleCard.png": "/react-visual-novel-prototype/static/media/TitleCard.920503e25421066fb7c5.png",
+    "index.html": "/react-visual-novel-prototype/index.html",
+    "main.4e72b917.css.map": "/react-visual-novel-prototype/static/css/main.4e72b917.css.map",
+    "main.e2ed44d3.js.map": "/react-visual-novel-prototype/static/js/main.e2ed44d3.js.map",
+    "787.55967e26.chunk.js.map": "/react-visual-novel-prototype/static/js/787.55967e26.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4e72b917.css",
+    "static/js/main.e2ed44d3.js"
+  ]
+}
