@@ -1,7 +1,7 @@
 {
   "name": "react-visual-novel-prototype",
   "version": "0.1.0",
-  "homepage": "https://fragmentb.github.io/ReactVisualNovelPrototype/react-visual-novel-prototype",
+  "homepage": "https://fragmentb.github.io/react-visual-novel-prototype",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
