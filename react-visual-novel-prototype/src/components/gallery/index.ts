@@ -1,1 +1,3 @@
-export * from './Gallery'
+import Gallery from "./Gallery";
+
+export default Gallery

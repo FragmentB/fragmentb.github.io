@@ -1,1 +1,3 @@
-export * from './SavingScreen'
+import SaveScreen from "./SavingScreen";
+
+export default SaveScreen

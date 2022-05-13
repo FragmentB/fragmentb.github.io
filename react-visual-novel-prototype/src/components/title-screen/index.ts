@@ -1,1 +1,3 @@
-export * from './TitleScreen'
+import TitleScreen from "./TitleScreen";
+
+export default TitleScreen

@@ -1,1 +1,3 @@
-export * from './MainMenu'
+import MainMenu from "./MainMenu";
+
+export default MainMenu
