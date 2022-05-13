@@ -1,5 +1,9 @@
 export const characterList = {characters: [
-    "Misc",
+    "Copper",
+    "Silver",
+    "Rishita",
+    "Saif",
+    "Kernesse",    
     "Lynn",
     "Mika",
     "Leena",
@@ -14,12 +18,8 @@ export const characterList = {characters: [
     "Beverly",
     "Arietta",
     "Anya",
-    "Copper",
-    "Silver",
-    "Rishita",
-    "Saif",
-    "Kernesse",
-    "Annika"
+    "Annika",
+    "Misc",
 ]}
 
 export default characterList;

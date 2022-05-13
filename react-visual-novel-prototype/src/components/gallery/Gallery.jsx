@@ -12,6 +12,7 @@ const Gallery = (props) => (
                 {
                     characterList.characters.map((character)=> {
                         try{
+                             //TODO: Hide character names for locked people
                             const thumb = require(`../../images/Characters/${character}/Portrait.png`);
                             return(
                             <div className="galleryItem" key={character}>
@@ -22,10 +23,10 @@ const Gallery = (props) => (
                         }
                         catch(err)
                         {
-                            //TODO: Replace with coming soon image
-                            return(<div className="galleryItem" key={character}>
-                            <img alt={character} height={90} width={90} />
-                            <span className="characterName">{character}</span>
+
+                            return(<div className="underConstruction" key={character}>
+                            <p>Coming</p>
+                            <p>Soon {character}</p>
                             </div>
                             )
                         }
