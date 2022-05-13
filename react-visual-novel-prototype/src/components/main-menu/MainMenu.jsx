@@ -16,9 +16,7 @@ function MainMenu() {
 
     const iscurrentURL = (url)=> {
 
-        const currentPath = location.pathname.toLowerCase();
-        const pathInList = menuList.findIndex(ml => ml.path.toLowerCase === currentPath) !== -1;
-        return  pathInList ? location.pathname.toLowerCase() === url.toLowerCase(): '/' === url;
+        return location.pathname.toLowerCase() === url.toLowerCase();
         
 
     }

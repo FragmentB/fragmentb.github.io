@@ -13,3 +13,18 @@
     display:block;
     justify-content: center;
 }
+
+.gallerySpace{
+    display: grid;
+    margin-left: 200px;
+    grid-template-columns: repeat(3, 160px);
+    grid-gap: 5px;
+    grid-auto-rows: 100px;
+    justify-content: right;
+}
+
+.galleryItem{
+    border: black 3px;
+    border-style: double;
+    background-image: linear-gradient(to right, rgba(200, 169, 249, 0.9) , rgb(255, 255, 255, .9));
+}
