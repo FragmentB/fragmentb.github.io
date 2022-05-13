@@ -15,10 +15,9 @@ function MainMenu() {
     const location = useLocation();
 
     const iscurrentURL = (url)=> {
-
-        return location.pathname.toLowerCase() === url.toLowerCase();
-        
-
+        const currentPath = location.pathname.toLowerCase();
+        const pathToCheck = menuList.findIndex(ml => ml.path === currentPath) !== -1 ? currentPath: '/';
+        return pathToCheck === url.toLowerCase();
     }
     
     return (
